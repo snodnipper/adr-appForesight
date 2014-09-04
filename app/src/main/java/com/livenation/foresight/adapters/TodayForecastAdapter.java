@@ -14,7 +14,6 @@ import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
-import com.livenation.foresight.util.Functions;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -23,13 +22,11 @@ import static com.livenation.foresight.util.Functions.filterList;
 
 public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
     private final LayoutInflater inflater;
-    private final TemperatureFormatter formatter;
 
-    public TodayForecastAdapter(@NonNull Context context, @NonNull TemperatureFormatter formatter) {
+    public TodayForecastAdapter(@NonNull Context context) {
         super(context, R.layout.item_today_weather_data);
 
         this.inflater = LayoutInflater.from(context);
-        this.formatter = formatter;
     }
 
     public void bindForecast(Forecast forecast) {
@@ -56,7 +53,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
 
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.time.setText(TimeFormatter.format(forecast.getTime()));
-        holder.temperature.setText(formatter.format(forecast.getApparentTemperature()));
+        holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
         holder.conditions.setText(forecast.getSummary());
         view.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
 

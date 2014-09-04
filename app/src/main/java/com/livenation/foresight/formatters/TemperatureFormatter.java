@@ -6,13 +6,7 @@ import android.support.annotation.NonNull;
 import com.livenation.foresight.R;
 
 public class TemperatureFormatter {
-    public final Context context;
-
-    public TemperatureFormatter(@NonNull Context context) {
-        this.context = context;
-    }
-
-    public String format(double temperature) {
+    public static String format(@NonNull Context context, double temperature) {
         return context.getString(R.string.temperature_fmt, temperature);
     }
 }

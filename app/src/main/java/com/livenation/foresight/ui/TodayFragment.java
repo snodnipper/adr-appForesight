@@ -32,9 +32,7 @@ public class TodayFragment extends ListFragment {
     @InjectView(R.id.fragment_forecast_temperature) TextView temperature;
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
 
-    @Inject
-    ForecastPresenter presenter;
-    private TemperatureFormatter temperatureFormatter;
+    @Inject ForecastPresenter presenter;
     private TodayForecastAdapter todayForecastAdapter;
 
     public TodayFragment() {
@@ -45,8 +43,7 @@ public class TodayFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.temperatureFormatter = new TemperatureFormatter(getActivity());
-        this.todayForecastAdapter = new TodayForecastAdapter(getActivity(), temperatureFormatter);
+        this.todayForecastAdapter = new TodayForecastAdapter(getActivity());
         setListAdapter(todayForecastAdapter);
 
         setRetainInstance(true);
@@ -73,7 +70,7 @@ public class TodayFragment extends ListFragment {
     public void bindForecast(Report report) {
         WeatherData currently = report.getCurrently();
         view.setBackgroundResource(IconFormatter.colorResourceForIcon(currently.getIcon()));
-        temperature.setText(temperatureFormatter.format(currently.getTemperature()));
+        temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperature()));
         conditions.setText(currently.getSummary());
     }
 
