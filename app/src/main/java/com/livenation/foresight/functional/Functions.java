@@ -1,4 +1,4 @@
-package com.livenation.foresight.util;
+package com.livenation.foresight.functional;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

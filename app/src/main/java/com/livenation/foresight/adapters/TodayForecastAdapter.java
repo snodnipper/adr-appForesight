@@ -14,11 +14,15 @@ import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.functional.Optional;
+
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.livenation.foresight.util.Functions.filterList;
+import static com.livenation.foresight.functional.Functions.filterList;
 
 public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
     private final LayoutInflater inflater;
@@ -29,12 +33,11 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
         this.inflater = LayoutInflater.from(context);
     }
 
-    public void bindForecast(Forecast forecast) {
+    public void bindForecast(Optional<Forecast> forecast) {
         clear();
-        if (forecast != null) {
-            long now = System.currentTimeMillis() / 1000;
-            addAll(filterList(forecast.getWeatherData(), d -> d.getTime() >= now));
-        }
+        List<WeatherData> weatherData = forecast.map(Forecast::getWeatherData).orElse(Collections.emptyList());
+        long now = System.currentTimeMillis() / 1000;
+        addAll(filterList(weatherData, d -> d.getTime() >= now));
     }
 
     public void handleError(@SuppressWarnings("UnusedParameters") Throwable ignored) {

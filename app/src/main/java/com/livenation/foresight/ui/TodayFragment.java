@@ -17,12 +17,14 @@ import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.graph.ForecastPresenter;
 import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.functional.Optional;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
@@ -62,8 +64,11 @@ public class TodayFragment extends ListFragment {
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
+                .map(Optional::ofNullable)
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
-        forecast.subscribe(this::bindForecast, this::handleError);
+        forecast.subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::bindForecast, this::handleError);
     }
 
 
