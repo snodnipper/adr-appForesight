@@ -72,7 +72,8 @@ public class TodayFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Observable<Boolean> isLoading = bindFragment(this, presenter.isLoading);
-        isLoading.subscribe(is -> loadingIndicator.setVisibility(is ? View.VISIBLE : View.INVISIBLE));
+        isLoading.map(is -> is ? View.VISIBLE : View.GONE)
+                 .subscribe(loadingIndicator::setVisibility);
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
