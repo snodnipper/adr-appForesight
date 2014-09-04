@@ -1,6 +1,7 @@
 package com.livenation.foresight.graph;
 
 import android.content.Context;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 
@@ -27,6 +28,10 @@ public class ForecastModule {
 
     @Provides @Singleton LocationManager provideLocationManager() {
         return (LocationManager) applicationContext.getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    @Provides @Singleton Geocoder provideGeocoder() {
+        return new Geocoder(applicationContext);
     }
 
     @Provides @Singleton ForecastApi provideForecastApi() {

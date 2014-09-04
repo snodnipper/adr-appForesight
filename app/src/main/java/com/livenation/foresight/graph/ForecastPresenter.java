@@ -22,6 +22,15 @@ import rx.subjects.ReplaySubject;
     }
 
     public void reload() {
-        location.coordinates.subscribe(l -> api.forecast(l.latitude, l.longitude).subscribe(forecast));
+        location.coordinates.subscribe(l -> api.forecast(l.latitude, l.longitude, getUnits(), getLanguage())
+                                               .subscribe(forecast));
+    }
+
+    public String getUnits() {
+        return ForecastApi.UNITS_US_CUSTOMARY;
+    }
+
+    public String getLanguage() {
+        return ForecastApi.DEFAULT_LANGUAGE;
     }
 }

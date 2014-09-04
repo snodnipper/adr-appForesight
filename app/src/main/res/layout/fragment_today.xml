@@ -40,6 +40,11 @@
         android:gravity="center"
         android:text="@string/loading_placeholder_generic"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_color" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

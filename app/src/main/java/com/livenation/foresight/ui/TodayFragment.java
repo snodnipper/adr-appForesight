@@ -15,6 +15,7 @@ import com.livenation.foresight.adapters.TodayForecastAdapter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.graph.ForecastPresenter;
+import com.livenation.foresight.graph.LocationGeocoder;
 import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.service.model.Report;
 import com.livenation.foresight.functional.Optional;
@@ -35,6 +36,7 @@ public class TodayFragment extends ListFragment {
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
 
     @Inject ForecastPresenter presenter;
+    @Inject LocationGeocoder geocoder;
     private TodayForecastAdapter todayForecastAdapter;
 
     public TodayFragment() {
@@ -69,6 +71,10 @@ public class TodayFragment extends ListFragment {
                 .subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
         forecast.subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::bindForecast, this::handleError);
+
+        Observable<String> locationName = bindFragment(this, geocoder.name);
+        locationName.subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(location::setText, unused -> location.setText("Current Location"));
     }
 
 
