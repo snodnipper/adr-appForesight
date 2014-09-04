@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.Text" parent="android:TextAppearance" />
+
+    <style name="AppTheme.Text.Forecast">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.Body">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.Body.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.SmallTemperature">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.MediumTemperature">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.Text.Forecast.BigTemperature">
+        <item name="android:textSize">60sp</item>
+    </style>
+
+</resources>

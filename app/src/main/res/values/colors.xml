@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transparent">#00ffffff</color>
+
+    <color name="condition_neutral">#0081a9</color>
+    <color name="condition_neutral_night">#130098</color>
+    <color name="condition_partly_cloud">#538697</color>
+    <color name="condition_partly_cloud_night">#4f4686</color>
+    <color name="condition_precipitating">#657c84</color>
+    <color name="condition_cloudy">#848484</color>
+</resources>

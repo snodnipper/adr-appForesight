@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/gap_medium"
+    android:gravity="center_vertical"
+    android:background="@color/condition_neutral">
+
+    <TextView
+        android:id="@+id/item_weather_data_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.Bold"
+        android:text="@string/mock_time"/>
+
+    <TextView
+        android:id="@+id/item_weather_data_conditions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/gap_medium"
+        android:layout_marginRight="@dimen/gap_medium"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body"
+        android:text="@string/mock_conditions"/>
+
+    <TextView
+        android:id="@+id/item_weather_data_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/AppTheme.Text.Forecast.MediumTemperature"
+        android:text="@string/loading_placeholder_temperature"/>
+
+</LinearLayout>

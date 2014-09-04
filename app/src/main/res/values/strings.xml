@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Foresight</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="loading_placeholder_generic">Loading…</string>
+    <string name="loading_placeholder_temperature">--º</string>
+    <string name="temperature_fmt">%1$.0fº</string>
+
+    <string name="mock_temperature">90º</string>
+    <string name="mock_location">San Francisco, CA</string>
+    <string name="mock_conditions">Partly cloudy throughout the day.</string>
+    <string name="mock_time">9:00pm</string>
+
+</resources>
