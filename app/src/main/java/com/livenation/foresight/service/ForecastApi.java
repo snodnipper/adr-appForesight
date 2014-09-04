@@ -1,5 +1,7 @@
 package com.livenation.foresight.service;
 
+import com.livenation.foresight.service.model.Report;
+
 import retrofit.http.GET;
 import retrofit.http.Path;
 import rx.Observable;

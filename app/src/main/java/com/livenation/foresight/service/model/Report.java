@@ -1,9 +1,9 @@
-package com.livenation.foresight.service;
+package com.livenation.foresight.service.model;
 
 public class Report {
     private WeatherData currently;
-    private LongTermForecast daily;
-    private LongTermForecast hourly;
+    private Forecast daily;
+    private Forecast hourly;
     private double latitude;
     private double longitude;
     private int offset;
@@ -14,11 +14,11 @@ public class Report {
         return currently;
     }
 
-    public LongTermForecast getDaily() {
+    public Forecast getDaily() {
         return daily;
     }
 
-    public LongTermForecast getHourly() {
+    public Forecast getHourly() {
         return hourly;
     }
 

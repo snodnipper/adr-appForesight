@@ -2,15 +2,12 @@ package com.livenation.foresight;
 
 import android.app.Application;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.livenation.foresight.service.ForecastApi;
+import com.livenation.foresight.graph.ForecastModule;
 
-import retrofit.RestAdapter;
-import retrofit.converter.JacksonConverter;
+import dagger.ObjectGraph;
 
 public class ForecastApplication extends Application {
-    private ForecastApi forecastApi;
+    private ObjectGraph objectGraph;
 
     private static ForecastApplication instance;
 
@@ -22,19 +19,12 @@ public class ForecastApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint(ForecastApi.URL)
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
-                .setConverter(new JacksonConverter(objectMapper))
-                .build();
-        forecastApi = adapter.create(ForecastApi.class);
+        this.objectGraph = ObjectGraph.create(new ForecastModule(getApplicationContext()));
 
         instance = this;
     }
 
-    public ForecastApi getForecastApi() {
-        return forecastApi;
+    public <T> void inject(T target) {
+        objectGraph.inject(target);
     }
 }

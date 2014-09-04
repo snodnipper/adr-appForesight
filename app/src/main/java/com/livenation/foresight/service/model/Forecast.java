@@ -1,10 +1,10 @@
-package com.livenation.foresight.service;
+package com.livenation.foresight.service.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;
 
-public class LongTermForecast {
+public class Forecast {
     @JsonDeserialize(contentAs=WeatherData.class)
     private List<WeatherData> data;
     private String icon;

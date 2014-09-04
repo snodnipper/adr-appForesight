@@ -1,4 +1,4 @@
-package com.livenation.foresight.service;
+package com.livenation.foresight.service.model;
 
 /**
  * A blob of weather data from the forecast.io API.

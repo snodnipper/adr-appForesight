@@ -1,4 +1,4 @@
-package com.livenation.foresight;
+package com.livenation.foresight.ui;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -9,17 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.livenation.foresight.ForecastApplication;
+import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.TodayForecastAdapter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
-import com.livenation.foresight.service.WeatherData;
-import com.livenation.foresight.service.ForecastApi;
-import com.livenation.foresight.service.Report;
+import com.livenation.foresight.graph.ForecastPresenter;
+import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.service.model.Report;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
-import rx.android.observables.AndroidObservable;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
@@ -29,15 +32,19 @@ public class TodayFragment extends ListFragment {
     @InjectView(R.id.fragment_forecast_temperature) TextView temperature;
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
 
-    private ForecastPresenter presenter;
+    @Inject
+    ForecastPresenter presenter;
     private TemperatureFormatter temperatureFormatter;
     private TodayForecastAdapter todayForecastAdapter;
+
+    public TodayFragment() {
+        ForecastApplication.getInstance().inject(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.presenter = new ForecastPresenter();
         this.temperatureFormatter = new TemperatureFormatter(getActivity());
         this.todayForecastAdapter = new TodayForecastAdapter(getActivity(), temperatureFormatter);
         setListAdapter(todayForecastAdapter);

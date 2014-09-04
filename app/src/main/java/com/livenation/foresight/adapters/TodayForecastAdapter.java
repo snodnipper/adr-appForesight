@@ -12,8 +12,8 @@ import com.livenation.foresight.R;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
-import com.livenation.foresight.service.LongTermForecast;
-import com.livenation.foresight.service.WeatherData;
+import com.livenation.foresight.service.model.Forecast;
+import com.livenation.foresight.service.model.WeatherData;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,7 +29,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
         this.formatter = formatter;
     }
 
-    public void bindForecast(LongTermForecast forecast) {
+    public void bindForecast(Forecast forecast) {
         clear();
         if (forecast != null && forecast.getWeatherData() != null)
             addAll(forecast.getWeatherData());
