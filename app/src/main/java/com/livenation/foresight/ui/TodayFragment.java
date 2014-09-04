@@ -64,7 +64,8 @@ public class TodayFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
-        forecast.map(Report::getHourly).subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
+        forecast.map(Report::getHourly)
+                .subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
         forecast.subscribe(this::bindForecast, this::handleError);
     }
 

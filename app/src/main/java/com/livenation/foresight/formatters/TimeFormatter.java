@@ -10,7 +10,7 @@ public class TimeFormatter {
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mm a");
 
     public static String format(@NonNull Date time) {
-        FORMATTER.setTimeZone(TimeZone.getTimeZone("UTC"));
+        FORMATTER.setTimeZone(TimeZone.getDefault());
         return FORMATTER.format(time);
     }
 
