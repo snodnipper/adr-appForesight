@@ -1,13 +1,15 @@
 package com.livenation.foresight.service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Report {
-    private WeatherData currently;
-    private Forecast daily;
-    private Forecast hourly;
-    private double latitude;
-    private double longitude;
-    private int offset;
-    private String timezone;
+    @JsonProperty("currently") private WeatherData currently;
+    @JsonProperty("daily") private Forecast daily;
+    @JsonProperty("hourly") private Forecast hourly;
+    @JsonProperty("latitude") private double latitude;
+    @JsonProperty("longitude") private double longitude;
+    @JsonProperty("offset") private int offset;
+    @JsonProperty("timezone") private String timezone;
 
 
     public WeatherData getCurrently() {

@@ -1,36 +1,36 @@
 package com.livenation.foresight.service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A blob of weather data from the forecast.io API.
- * <p/>
- * All units are in US customary.
  */
 public class WeatherData {
-    private double apparentTemperature;
-    private double apparentTemperatureMin;
-    private long apparentTemperatureMinTime;
-    private double apparentTemperatureMax;
-    private long apparentTemperatureMaxTime;
-    private double cloudCover;
-    private double dewPoint;
-    private double humidity;
-    private String icon;
-    private double nearestStormBearing;
-    private double nearestStormDistance;
-    private double ozone;
-    private double precipIntensity;
-    private double precipProbability;
-    private double pressure;
-    private String summary;
-    private double temperature;
-    private double temperatureMin;
-    private long temperatureMinTime;
-    private double temperatureMax;
-    private long temperatureMaxTime;
-    private long time;
-    private double visibility;
-    private double windBearing;
-    private double windSpeed;
+    @JsonProperty("apparentTemperature") private double apparentTemperature;
+    @JsonProperty("apparentTemperatureMin") private double apparentTemperatureMin;
+    @JsonProperty("apparentTemperatureMinTime") private long apparentTemperatureMinTime;
+    @JsonProperty("apparentTemperatureMax") private double apparentTemperatureMax;
+    @JsonProperty("apparentTemperatureMaxTime") private long apparentTemperatureMaxTime;
+    @JsonProperty("cloudCover") private double cloudCover;
+    @JsonProperty("dewPoint") private double dewPoint;
+    @JsonProperty("humidity") private double humidity;
+    @JsonProperty("icon") private String icon;
+    @JsonProperty("nearestStormBearing") private double nearestStormBearing;
+    @JsonProperty("nearestStormDistance") private double nearestStormDistance;
+    @JsonProperty("ozone") private double ozone;
+    @JsonProperty("precipIntensity") private double precipIntensity;
+    @JsonProperty("precipProbability") private double precipProbability;
+    @JsonProperty("pressure") private double pressure;
+    @JsonProperty("summary") private String summary;
+    @JsonProperty("temperature") private double temperature;
+    @JsonProperty("temperatureMin") private double temperatureMin;
+    @JsonProperty("temperatureMinTime") private long temperatureMinTime;
+    @JsonProperty("temperatureMax") private double temperatureMax;
+    @JsonProperty("temperatureMaxTime") private long temperatureMaxTime;
+    @JsonProperty("time") private long time;
+    @JsonProperty("visibility") private double visibility;
+    @JsonProperty("windBearing") private double windBearing;
+    @JsonProperty("windSpeed") private double windSpeed;
 
 
     public double getApparentTemperature() {
