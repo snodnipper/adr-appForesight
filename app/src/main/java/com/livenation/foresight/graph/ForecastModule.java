@@ -26,6 +26,10 @@ public class ForecastModule {
         this.applicationContext = applicationContext;
     }
 
+    @Provides @Singleton Context provideApplicationContext() {
+        return applicationContext;
+    }
+
     @Provides @Singleton LocationManager provideLocationManager() {
         return (LocationManager) applicationContext.getSystemService(Context.LOCATION_SERVICE);
     }

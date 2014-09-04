@@ -67,14 +67,11 @@ public class TodayFragment extends ListFragment {
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
                 .map(Optional::ofNullable)
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
-        forecast.subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::bindForecast, this::handleError);
+        forecast.subscribe(this::bindForecast, this::handleError);
 
         Observable<String> locationName = bindFragment(this, geocoder.name);
-        locationName.subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(location::setText, unused -> location.setText("Current Location"));
+        locationName.subscribe(location::setText);
     }
 
 

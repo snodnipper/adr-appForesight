@@ -13,5 +13,6 @@
     <string name="mock_location">San Francisco, CA</string>
     <string name="mock_conditions">Partly cloudy throughout the day.</string>
     <string name="mock_time">9:00pm</string>
+    <string name="unit_system">Unit System</string>
 
 </resources>

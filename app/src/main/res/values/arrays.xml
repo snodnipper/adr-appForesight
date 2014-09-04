@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="unit_system_codes">
+        <item>us</item>
+        <item>si</item>
+        <item>ca</item>
+        <item>uk</item>
+    </string-array>
+
+    <string-array name="unit_system_names">
+        <item>US Customary</item>
+        <item>Metric</item>
+        <item>Canadian</item>
+        <item>United Kingdom</item>
+    </string-array>
+
+</resources>
