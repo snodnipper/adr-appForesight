@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.livenation.foresight.ui.HomeActivity;
 import com.livenation.foresight.ui.TodayFragment;
 import com.livenation.foresight.service.ForecastApi;
 
@@ -17,7 +18,7 @@ import dagger.Provides;
 import retrofit.RestAdapter;
 import retrofit.converter.JacksonConverter;
 
-@Module(injects = {TodayFragment.class, ForecastPresenter.class})
+@Module(injects = {HomeActivity.class, TodayFragment.class, ForecastPresenter.class})
 @SuppressWarnings("UnusedDeclaration")
 public class ForecastModule {
     private final Context applicationContext;

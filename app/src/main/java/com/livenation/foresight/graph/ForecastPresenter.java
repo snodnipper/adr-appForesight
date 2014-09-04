@@ -17,6 +17,7 @@ import rx.subjects.ReplaySubject;
     private final LocationPresenter location;
     private final PreferencesManager preferences;
 
+    public final ReplaySubject<Boolean> isLoading = ReplaySubject.create(1);
     public final ReplaySubject<Report> forecast = ReplaySubject.create(1);
 
     @Inject public ForecastPresenter(ForecastApi api,
@@ -26,19 +27,20 @@ import rx.subjects.ReplaySubject;
         this.location = location;
         this.preferences = preferences;
 
+        isLoading.onNext(false);
         reload();
     }
 
     public void reload() {
+        isLoading.onNext(true);
         Observable<Pair<Coordinates, String>> data = Observable.combineLatest(location.coordinates, preferences.unitSystem, Pair::new);
         data.subscribe(params -> {
             Coordinates location = params.first;
             String units = params.second;
 
             api.forecast(location.latitude, location.longitude, units, getLanguage())
-               .subscribe(r -> {
-                   forecast.onNext(r);
-               });
+               .doOnNext(unused -> isLoading.onNext(false))
+               .subscribe(forecast);
         });
     }
 

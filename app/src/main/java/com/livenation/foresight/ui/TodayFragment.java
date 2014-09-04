@@ -1,12 +1,15 @@
 package com.livenation.foresight.ui;
 
 import android.app.ListFragment;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.livenation.foresight.ForecastApplication;
@@ -31,6 +34,7 @@ import static rx.android.observables.AndroidObservable.bindFragment;
 
 public class TodayFragment extends ListFragment {
     private View view;
+    @InjectView(R.id.fragment_today_loading) ProgressBar loadingIndicator;
     @InjectView(R.id.fragment_forecast_location) TextView location;
     @InjectView(R.id.fragment_forecast_temperature) TextView temperature;
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
@@ -57,12 +61,18 @@ public class TodayFragment extends ListFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.fragment_today, container, false);
         ButterKnife.inject(this, view);
+
+        loadingIndicator.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Observable<Boolean> isLoading = bindFragment(this, presenter.isLoading);
+        isLoading.subscribe(is -> loadingIndicator.setVisibility(is ? View.VISIBLE : View.INVISIBLE));
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
