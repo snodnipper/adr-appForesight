@@ -18,8 +18,8 @@ public class WeatherData {
     @JsonProperty("nearestStormBearing") private double nearestStormBearing;
     @JsonProperty("nearestStormDistance") private double nearestStormDistance;
     @JsonProperty("ozone") private double ozone;
-    @JsonProperty("precipIntensity") private double precipIntensity;
-    @JsonProperty("precipProbability") private double precipProbability;
+    @JsonProperty("precipIntensity") private double precipitationIntensity;
+    @JsonProperty("precipProbability") private double precipitationProbability;
     @JsonProperty("pressure") private double pressure;
     @JsonProperty("summary") private String summary;
     @JsonProperty("temperature") private double temperature;
@@ -81,12 +81,12 @@ public class WeatherData {
         return ozone;
     }
 
-    public double getPrecipIntensity() {
-        return precipIntensity;
+    public double getPrecipitationIntensity() {
+        return precipitationIntensity;
     }
 
-    public double getPrecipProbability() {
-        return precipProbability;
+    public double getPrecipitationProbability() {
+        return precipitationProbability;
     }
 
     public double getPressure() {
