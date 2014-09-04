@@ -33,12 +33,9 @@ import rx.subjects.ReplaySubject;
 
     public void reload() {
         isLoading.onNext(true);
-        Observable<Pair<Coordinates, String>> data = Observable.combineLatest(location.coordinates, preferences.unitSystem, Pair::new);
+        Observable<Params> data = Observable.combineLatest(location.coordinates, preferences.unitSystem, Params::new);
         data.subscribe(params -> {
-            Coordinates location = params.first;
-            String units = params.second;
-
-            api.forecast(location.latitude, location.longitude, units, getLanguage())
+            api.forecast(params.location.latitude, params.location.longitude, params.units, getLanguage())
                .doOnNext(unused -> isLoading.onNext(false))
                .subscribe(forecast);
         });
@@ -46,5 +43,16 @@ import rx.subjects.ReplaySubject;
 
     public String getLanguage() {
         return ForecastApi.DEFAULT_LANGUAGE;
+    }
+
+
+    private static class Params {
+        private final Coordinates location;
+        private final String units;
+
+        private Params(Coordinates location, String units) {
+            this.location = location;
+            this.units = units;
+        }
     }
 }
