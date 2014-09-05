@@ -23,14 +23,12 @@ import com.livenation.foresight.graph.ForecastPresenter;
 import com.livenation.foresight.graph.LocationGeocoder;
 import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.service.model.Report;
-import com.livenation.foresight.functional.Optional;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
@@ -79,7 +77,6 @@ public class TodayFragment extends ListFragment {
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
-                .map(Optional::ofNullable)
                 .subscribe(todayForecastAdapter::bindForecast, todayForecastAdapter::handleError);
         forecast.subscribe(this::bindForecast, this::handleError);
 
@@ -89,16 +86,17 @@ public class TodayFragment extends ListFragment {
 
 
     public void bindForecast(Report report) {
-        WeatherData currently = report.getCurrently();
-        view.setBackgroundResource(IconFormatter.colorResourceForIcon(currently.getIcon()));
-        temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperature()));
-        conditions.setText(currently.getSummary());
+        report.getCurrently().ifPresent(currently -> {
+            view.setBackgroundResource(IconFormatter.colorResourceForIcon(currently.getIcon()));
+            temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperature()));
+            conditions.setText(currently.getSummary().orElse(""));
 
-        Drawable conditionIcon = getResources().getDrawable(IconFormatter.imageResourceForIcon(currently.getIcon()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
-        else
-            temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
+            Drawable conditionIcon = getResources().getDrawable(IconFormatter.imageResourceForIcon(currently.getIcon()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+                temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
+            else
+                temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
+        });
     }
 
     public void handleError(Throwable error) {

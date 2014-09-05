@@ -1,26 +1,27 @@
 package com.livenation.foresight.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.livenation.foresight.functional.Optional;
 
 public class Report {
-    @JsonProperty("currently") private WeatherData currently;
-    @JsonProperty("daily") private Forecast daily;
-    @JsonProperty("hourly") private Forecast hourly;
+    @JsonProperty("currently") private Optional<WeatherData> currently;
+    @JsonProperty("daily") private Optional<Forecast> daily;
+    @JsonProperty("hourly") private Optional<Forecast> hourly;
     @JsonProperty("latitude") private double latitude;
     @JsonProperty("longitude") private double longitude;
     @JsonProperty("offset") private int offset;
-    @JsonProperty("timezone") private String timezone;
+    @JsonProperty("timezone") private Optional<String> timezone;
 
 
-    public WeatherData getCurrently() {
+    public Optional<WeatherData> getCurrently() {
         return currently;
     }
 
-    public Forecast getDaily() {
+    public Optional<Forecast> getDaily() {
         return daily;
     }
 
-    public Forecast getHourly() {
+    public Optional<Forecast> getHourly() {
         return hourly;
     }
 
@@ -36,7 +37,7 @@ public class Report {
         return offset;
     }
 
-    public String getTimezone() {
+    public Optional<String> getTimezone() {
         return timezone;
     }
 

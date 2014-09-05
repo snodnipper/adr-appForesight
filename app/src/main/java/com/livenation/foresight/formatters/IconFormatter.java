@@ -1,10 +1,11 @@
 package com.livenation.foresight.formatters;
 
 import com.livenation.foresight.R;
+import com.livenation.foresight.functional.Optional;
 
 public class IconFormatter {
-    public static int colorResourceForIcon(String icon) {
-        switch (icon) {
+    public static int colorResourceForIcon(Optional<String> icon) {
+        switch (icon.orElse("")) {
             case "clear-day":
                 return R.color.condition_neutral;
             case "clear-night":
@@ -30,8 +31,8 @@ public class IconFormatter {
         }
     }
 
-    public static int imageResourceForIcon(String icon) {
-        switch (icon) {
+    public static int imageResourceForIcon(Optional<String> icon) {
+        switch (icon.orElse("")) {
             case "clear-day":
                 return R.drawable.clear_day;
             case "clear-night":

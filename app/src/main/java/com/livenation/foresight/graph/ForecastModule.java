@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.livenation.foresight.functional.OptionalJacksonModule;
 import com.livenation.foresight.ui.HomeActivity;
 import com.livenation.foresight.ui.TodayFragment;
 import com.livenation.foresight.service.ForecastApi;
@@ -41,6 +42,7 @@ public class ForecastModule {
 
     @Provides @Singleton ForecastApi provideForecastApi() {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new OptionalJacksonModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(ForecastApi.URL)

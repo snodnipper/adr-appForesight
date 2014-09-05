@@ -2,25 +2,26 @@ package com.livenation.foresight.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.livenation.foresight.functional.Optional;
 
 import java.util.List;
 
 public class Forecast {
     @JsonDeserialize(contentAs=WeatherData.class)
-    @JsonProperty("data") private List<WeatherData> data;
-    @JsonProperty("icon") private String icon;
-    @JsonProperty("summary") private String summary;
+    @JsonProperty("data") private Optional<List<WeatherData>> data;
+    @JsonProperty("icon") private Optional<String> icon;
+    @JsonProperty("summary") private Optional<String> summary;
 
 
-    public List<WeatherData> getWeatherData() {
+    public Optional<List<WeatherData>> getWeatherData() {
         return data;
     }
 
-    public String getIcon() {
+    public Optional<String> getIcon() {
         return icon;
     }
 
-    public String getSummary() {
+    public Optional<String> getSummary() {
         return summary;
     }
 

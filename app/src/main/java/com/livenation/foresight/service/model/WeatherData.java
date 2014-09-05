@@ -1,6 +1,7 @@
 package com.livenation.foresight.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.livenation.foresight.functional.Optional;
 
 /**
  * A blob of weather data from the forecast.io API.
@@ -14,14 +15,14 @@ public class WeatherData {
     @JsonProperty("cloudCover") private double cloudCover;
     @JsonProperty("dewPoint") private double dewPoint;
     @JsonProperty("humidity") private double humidity;
-    @JsonProperty("icon") private String icon;
+    @JsonProperty("icon") private Optional<String> icon;
     @JsonProperty("nearestStormBearing") private double nearestStormBearing;
     @JsonProperty("nearestStormDistance") private double nearestStormDistance;
     @JsonProperty("ozone") private double ozone;
     @JsonProperty("precipIntensity") private double precipitationIntensity;
     @JsonProperty("precipProbability") private double precipitationProbability;
     @JsonProperty("pressure") private double pressure;
-    @JsonProperty("summary") private String summary;
+    @JsonProperty("summary") private Optional<String> summary;
     @JsonProperty("temperature") private double temperature;
     @JsonProperty("temperatureMin") private double temperatureMin;
     @JsonProperty("temperatureMinTime") private long temperatureMinTime;
@@ -65,7 +66,7 @@ public class WeatherData {
         return humidity;
     }
 
-    public String getIcon() {
+    public Optional<String> getIcon() {
         return icon;
     }
 
@@ -93,7 +94,7 @@ public class WeatherData {
         return pressure;
     }
 
-    public String getSummary() {
+    public Optional<String> getSummary() {
         return summary;
     }
 

@@ -36,7 +36,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
 
     public void bindForecast(Optional<Forecast> forecast) {
         clear();
-        List<WeatherData> weatherData = forecast.map(Forecast::getWeatherData).orElse(Collections.emptyList());
+        List<WeatherData> weatherData = forecast.flatMap(Forecast::getWeatherData).orElse(Collections.emptyList());
         long now = System.currentTimeMillis() / 1000;
         addAll(filterList(weatherData, d -> d.getTime() >= now));
     }
@@ -59,7 +59,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
         holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
         holder.time.setText(TimeFormatter.format(forecast.getTime()));
         holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
-        holder.conditions.setText(forecast.getSummary());
+        holder.conditions.setText(forecast.getSummary().orElse(""));
         view.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
 
         return view;
