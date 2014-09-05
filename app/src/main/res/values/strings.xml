@@ -15,5 +15,6 @@
     <string name="mock_time">9:00pm</string>
     <string name="unit_system">Unit System</string>
     <string name="action_refresh">Refresh</string>
+    <string name="current_conditions">Current Conditions</string>
 
 </resources>

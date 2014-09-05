@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class TimeFormatter {
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mm a");
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh a");
 
     public static String format(@NonNull Date time) {
         FORMATTER.setTimeZone(TimeZone.getDefault());

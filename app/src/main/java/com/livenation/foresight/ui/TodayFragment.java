@@ -3,6 +3,8 @@ package com.livenation.foresight.ui;
 import android.app.ListFragment;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -72,7 +74,7 @@ public class TodayFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
 
         Observable<Boolean> isLoading = bindFragment(this, presenter.isLoading);
-        isLoading.map(is -> is ? View.VISIBLE : View.GONE)
+        isLoading.map(is -> is ? View.VISIBLE : View.INVISIBLE)
                  .subscribe(loadingIndicator::setVisibility);
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
@@ -91,6 +93,12 @@ public class TodayFragment extends ListFragment {
         view.setBackgroundResource(IconFormatter.colorResourceForIcon(currently.getIcon()));
         temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperature()));
         conditions.setText(currently.getSummary());
+
+        Drawable conditionIcon = getResources().getDrawable(IconFormatter.imageResourceForIcon(currently.getIcon()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
+        else
+            temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
     }
 
     public void handleError(Throwable error) {

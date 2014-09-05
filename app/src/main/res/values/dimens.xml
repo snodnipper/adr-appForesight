@@ -9,4 +9,6 @@
     <dimen name="gap_large">20dp</dimen>
 
     <dimen name="divider_height">1px</dimen>
+    <dimen name="small_icon_width">30dp</dimen>
+    <dimen name="large_icon_width">40dp</dimen>
 </resources>

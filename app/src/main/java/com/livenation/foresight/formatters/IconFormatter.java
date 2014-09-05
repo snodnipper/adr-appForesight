@@ -29,4 +29,29 @@ public class IconFormatter {
                 return R.color.condition_neutral;
         }
     }
+
+    public static int imageResourceForIcon(String icon) {
+        switch (icon) {
+            case "clear-day":
+                return R.drawable.clear_day;
+            case "clear-night":
+                return R.drawable.clear_night;
+            case "rain":
+                return R.drawable.rain;
+            case "snow":
+                return R.drawable.snow;
+            case "sleet":
+                return R.drawable.sleet;
+            case "wind":
+                return R.drawable.windy;
+            case "fog":
+                return R.drawable.fog;
+            case "partly-cloudy-day":
+            case "partly-cloudy-night":
+            case "cloudy":
+                return R.drawable.cloudy;
+            default:
+                return R.drawable.clear_day;
+        }
+    }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
@@ -55,6 +56,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
         WeatherData forecast = getItem(position);
 
         ViewHolder holder = (ViewHolder) view.getTag();
+        holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
         holder.time.setText(TimeFormatter.format(forecast.getTime()));
         holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
         holder.conditions.setText(forecast.getSummary());
@@ -65,6 +67,7 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
 
 
     class ViewHolder {
+        @InjectView(R.id.item_weather_data_icon) ImageView icon;
         @InjectView(R.id.item_weather_data_time) TextView time;
         @InjectView(R.id.item_weather_data_temperature) TextView temperature;
         @InjectView(R.id.item_weather_data_conditions) TextView conditions;
