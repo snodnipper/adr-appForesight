@@ -8,6 +8,7 @@
     <string name="loading_placeholder_generic">Loading…</string>
     <string name="loading_placeholder_temperature">--º</string>
     <string name="temperature_fmt">%1$.0fº</string>
+    <string name="temperature_range_fmt">%1$.0fº/%2$.0fº</string>
 
     <string name="mock_temperature">90º</string>
     <string name="mock_location">San Francisco, CA</string>
@@ -16,5 +17,6 @@
     <string name="unit_system">Unit System</string>
     <string name="action_refresh">Refresh</string>
     <string name="current_conditions">Current Conditions</string>
+    <string name="error_dialog_title">Error</string>
 
 </resources>

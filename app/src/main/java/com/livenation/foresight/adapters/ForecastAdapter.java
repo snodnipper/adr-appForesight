@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
+import com.livenation.foresight.formatters.DayFormatter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
@@ -25,13 +26,15 @@ import butterknife.InjectView;
 
 import static com.livenation.foresight.functional.Functions.filterList;
 
-public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
+public class ForecastAdapter extends ArrayAdapter<WeatherData> {
     private final LayoutInflater inflater;
+    private final Mode mode;
 
-    public TodayForecastAdapter(@NonNull Context context) {
-        super(context, R.layout.item_today_weather_data);
+    public ForecastAdapter(@NonNull Context context, @NonNull Mode mode) {
+        super(context, R.layout.item_hourly_forecast);
 
         this.inflater = LayoutInflater.from(context);
+        this.mode = mode;
     }
 
     public void bindForecast(Optional<Forecast> forecast) {
@@ -49,18 +52,35 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = inflater.inflate(R.layout.item_today_weather_data, parent, false);
+            switch (mode) {
+                case HOURLY:
+                    view = inflater.inflate(R.layout.item_hourly_forecast, parent, false);
+                    break;
+
+                case DAILY:
+                    view = inflater.inflate(R.layout.item_daily_forecast, parent, false);
+                    break;
+            }
             view.setTag(new ViewHolder(view));
         }
 
         WeatherData forecast = getItem(position);
 
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
-        holder.time.setText(TimeFormatter.format(forecast.getTime()));
-        holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
-        holder.conditions.setText(forecast.getSummary().orElse(""));
         view.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
+        holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
+        switch (mode) {
+            case HOURLY:
+                holder.time.setText(TimeFormatter.format(forecast.getTime()));
+                holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
+                break;
+
+            case DAILY:
+                holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getTemperatureMin(), forecast.getTemperatureMax()));
+                holder.time.setText(DayFormatter.format(forecast.getTime()));
+                break;
+        }
+        holder.conditions.setText(forecast.getSummary().orElse(""));
 
         return view;
     }
@@ -75,5 +95,10 @@ public class TodayForecastAdapter extends ArrayAdapter<WeatherData> {
         ViewHolder(@NonNull View view) {
             ButterKnife.inject(this, view);
         }
+    }
+
+    public static enum Mode {
+        HOURLY,
+        DAILY,
     }
 }
