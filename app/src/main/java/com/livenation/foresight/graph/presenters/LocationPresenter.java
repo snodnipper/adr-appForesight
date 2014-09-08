@@ -1,4 +1,4 @@
-package com.livenation.foresight.graph;
+package com.livenation.foresight.graph.presenters;
 
 import android.location.Criteria;
 import android.location.Location;
@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 
 import com.livenation.foresight.service.model.Coordinates;
 
@@ -15,19 +16,18 @@ import javax.inject.Singleton;
 import rx.subjects.ReplaySubject;
 
 @Singleton
-public class LocationPresenter {
+public class LocationPresenter implements Presenter {
     private final LocationManager locationManager;
 
     public final ReplaySubject<Coordinates> coordinates = ReplaySubject.create(1);
 
-    @Inject
-    public LocationPresenter(LocationManager locationManager) {
+    @Inject public LocationPresenter(@NonNull LocationManager locationManager) {
         this.locationManager = locationManager;
-
         reload();
     }
 
 
+    @Override
     public void reload() {
         String providerName = locationManager.getBestProvider(makeCriteria(), true);
         if (providerName == null) {

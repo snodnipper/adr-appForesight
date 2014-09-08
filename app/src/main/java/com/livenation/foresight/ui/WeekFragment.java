@@ -1,12 +1,12 @@
 package com.livenation.foresight.ui;
 
-import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.View;
 
 import com.livenation.foresight.ForecastApplication;
 import com.livenation.foresight.adapters.ForecastAdapter;
-import com.livenation.foresight.graph.ForecastPresenter;
+import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
 
 import javax.inject.Inject;

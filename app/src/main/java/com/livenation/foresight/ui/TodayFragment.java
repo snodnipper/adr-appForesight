@@ -1,10 +1,10 @@
 package com.livenation.foresight.ui;
 
-import android.app.ListFragment;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,8 @@ import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.functional.OnErrors;
 import com.livenation.foresight.functional.Optional;
-import com.livenation.foresight.graph.ForecastPresenter;
-import com.livenation.foresight.graph.LocationGeocoder;
+import com.livenation.foresight.graph.ReverseGeocoder;
+import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.service.model.Report;
 
@@ -36,7 +36,8 @@ public class TodayFragment extends ListFragment {
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
 
     @Inject ForecastPresenter presenter;
-    @Inject LocationGeocoder geocoder;
+    @Inject
+    ReverseGeocoder geocoder;
     private ForecastAdapter forecastAdapter;
 
     public TodayFragment() {

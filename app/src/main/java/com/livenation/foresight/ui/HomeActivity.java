@@ -1,13 +1,10 @@
 package com.livenation.foresight.ui;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,10 +13,11 @@ import android.widget.ProgressBar;
 
 import com.livenation.foresight.ForecastApplication;
 import com.livenation.foresight.R;
+import com.livenation.foresight.adapters.StaticFragmentAdapter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.functional.OnErrors;
 import com.livenation.foresight.functional.Optional;
-import com.livenation.foresight.graph.ForecastPresenter;
+import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
 import com.livenation.foresight.service.model.WeatherData;
 
@@ -30,10 +28,8 @@ import butterknife.InjectView;
 import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindActivity;
-import static rx.android.observables.AndroidObservable.bindFragment;
 
-
-public class HomeActivity extends Activity {
+public class HomeActivity extends FragmentActivity {
     @Inject ForecastPresenter presenter;
     @InjectView(R.id.activity_home_view) View view;
     @InjectView(R.id.activity_home_loading) ProgressBar loadingIndicator;
@@ -50,7 +46,10 @@ public class HomeActivity extends Activity {
         ButterKnife.inject(this);
 
         loadingIndicator.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-        viewPager.setAdapter(new FragmentAdapter(getFragmentManager()));
+        viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Class<?>[] {
+                TodayFragment.class,
+                WeekFragment.class,
+        }));
     }
 
     @Override
@@ -74,15 +73,18 @@ public class HomeActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
-        } else if (id == R.id.action_reload) {
-            presenter.reload();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+
+            case R.id.action_reload:
+                presenter.reload();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -91,28 +93,5 @@ public class HomeActivity extends Activity {
             int colorResId = IconFormatter.colorResourceForIcon(forecast.getIcon());
             view.setBackgroundResource(colorResId);
         });
-    }
-
-
-    private static class FragmentAdapter extends FragmentPagerAdapter {
-        private static final Class<?>[] ITEMS = { TodayFragment.class, WeekFragment.class };
-
-        private FragmentAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return ITEMS.length;
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            try {
-                return (Fragment) ITEMS[i].newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 }

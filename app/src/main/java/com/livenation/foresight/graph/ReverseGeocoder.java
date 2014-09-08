@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.support.annotation.NonNull;
 
 import com.livenation.foresight.formatters.AddressFormatter;
+import com.livenation.foresight.graph.presenters.LocationPresenter;
 import com.livenation.foresight.service.model.Coordinates;
 
 import java.io.IOException;
@@ -15,17 +16,18 @@ import javax.inject.Singleton;
 
 import rx.subjects.ReplaySubject;
 
-@Singleton public class LocationGeocoder {
+@Singleton public class ReverseGeocoder {
     private final Geocoder geocoder;
 
     public final ReplaySubject<String> name = ReplaySubject.create(1);
 
-    @Inject public LocationGeocoder(@NonNull Geocoder geocoder, @NonNull LocationPresenter locationPresenter) {
+    @Inject public ReverseGeocoder(@NonNull Geocoder geocoder,
+                                   @NonNull LocationPresenter locationPresenter) {
         this.geocoder = geocoder;
-        locationPresenter.coordinates.subscribe(this::bindLocation);
+        locationPresenter.coordinates.subscribe(this::geocodeLocation);
     }
 
-    public void bindLocation(Coordinates location) {
+    public void geocodeLocation(Coordinates location) {
         new Thread(() -> {
             try {
                 List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
