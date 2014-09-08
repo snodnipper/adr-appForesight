@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.livenation.foresight.ForecastApplication;
+import com.livenation.foresight.ForesightApplication;
 
 import butterknife.ButterKnife;
 
 public class InjectionListFragment extends ListFragment {
     public InjectionListFragment() {
-        ForecastApplication.getInstance().inject(this);
+        ForesightApplication.getInstance().inject(this);
     }
 
     @Override

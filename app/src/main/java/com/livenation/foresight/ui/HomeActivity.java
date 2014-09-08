@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.livenation.foresight.ForecastApplication;
 import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.StaticFragmentAdapter;
 import com.livenation.foresight.formatters.IconFormatter;
@@ -25,7 +23,6 @@ import com.livenation.foresight.util.SetContentView;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
 

@@ -6,12 +6,12 @@ import com.livenation.foresight.graph.ForecastModule;
 
 import dagger.ObjectGraph;
 
-public class ForecastApplication extends Application {
+public class ForesightApplication extends Application {
     private ObjectGraph objectGraph;
 
-    private static ForecastApplication instance;
+    private static ForesightApplication instance;
 
-    public static ForecastApplication getInstance() {
+    public static ForesightApplication getInstance() {
         return instance;
     }
 

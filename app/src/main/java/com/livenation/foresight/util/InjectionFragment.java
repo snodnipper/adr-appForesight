@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.livenation.foresight.ForecastApplication;
+import com.livenation.foresight.ForesightApplication;
 
 import butterknife.ButterKnife;
 
 public class InjectionFragment extends Fragment {
     public InjectionFragment() {
-        ForecastApplication.getInstance().inject(this);
+        ForesightApplication.getInstance().inject(this);
     }
 
     @Override
