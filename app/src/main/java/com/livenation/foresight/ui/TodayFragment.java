@@ -33,8 +33,7 @@ public class TodayFragment extends InjectionListFragment {
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
 
     @Inject ForecastPresenter presenter;
-    @Inject
-    ReverseGeocoder geocoder;
+    @Inject ReverseGeocoder geocoder;
     private ForecastAdapter forecastAdapter;
 
     @Override
