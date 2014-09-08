@@ -3,14 +3,9 @@ package com.livenation.foresight.ui;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.livenation.foresight.ForecastApplication;
 import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.formatters.IconFormatter;
@@ -19,18 +14,20 @@ import com.livenation.foresight.functional.OnErrors;
 import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.graph.ReverseGeocoder;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
-import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.util.InjectionListFragment;
+import com.livenation.foresight.util.SetContentView;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
-public class TodayFragment extends ListFragment {
+@SetContentView(R.layout.fragment_today)
+public class TodayFragment extends InjectionListFragment {
     @InjectView(R.id.fragment_forecast_location) TextView location;
     @InjectView(R.id.fragment_forecast_temperature) TextView temperature;
     @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
@@ -40,10 +37,6 @@ public class TodayFragment extends ListFragment {
     ReverseGeocoder geocoder;
     private ForecastAdapter forecastAdapter;
 
-    public TodayFragment() {
-        ForecastApplication.getInstance().inject(this);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +45,6 @@ public class TodayFragment extends ListFragment {
         setListAdapter(forecastAdapter);
 
         setRetainInstance(true);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_today, container, false);
-        ButterKnife.inject(this, view);
-        return view;
     }
 
     @Override

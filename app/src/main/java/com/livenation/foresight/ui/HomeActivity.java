@@ -20,6 +20,8 @@ import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
 import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.util.InjectionActivity;
+import com.livenation.foresight.util.SetContentView;
 
 import javax.inject.Inject;
 
@@ -29,21 +31,16 @@ import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindActivity;
 
-public class HomeActivity extends FragmentActivity {
+@SetContentView(R.layout.activity_home)
+public class HomeActivity extends InjectionActivity {
     @Inject ForecastPresenter presenter;
     @InjectView(R.id.activity_home_view) View view;
     @InjectView(R.id.activity_home_loading) ProgressBar loadingIndicator;
     @InjectView(R.id.activity_home_pager) ViewPager viewPager;
 
-    public HomeActivity() {
-        ForecastApplication.getInstance().inject(this);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ButterKnife.inject(this);
 
         loadingIndicator.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Class<?>[] {

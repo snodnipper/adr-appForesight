@@ -1,13 +1,12 @@
 package com.livenation.foresight.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 
-import com.livenation.foresight.ForecastApplication;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.util.InjectionListFragment;
 
 import javax.inject.Inject;
 
@@ -15,14 +14,10 @@ import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
-public class WeekFragment extends ListFragment {
+public class WeekFragment extends InjectionListFragment {
     @Inject ForecastPresenter presenter;
 
     private ForecastAdapter forecastAdapter;
-
-    public WeekFragment() {
-        ForecastApplication.getInstance().inject(this);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
