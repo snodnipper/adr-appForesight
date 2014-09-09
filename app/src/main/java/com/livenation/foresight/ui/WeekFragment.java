@@ -1,21 +1,29 @@
 package com.livenation.foresight.ui;
 
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
-import com.livenation.foresight.util.InjectionListFragment;
+import com.livenation.foresight.util.InjectionFragment;
+import com.livenation.foresight.util.SetContentView;
 
 import javax.inject.Inject;
 
+import butterknife.InjectView;
 import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
-public class WeekFragment extends InjectionListFragment {
+@SetContentView(R.layout.fragment_week)
+public class WeekFragment extends InjectionFragment {
     @Inject ForecastPresenter presenter;
+    @InjectView(R.id.fragment_week_recycler_view) RecyclerView recyclerView;
 
     private ForecastAdapter forecastAdapter;
 
@@ -24,8 +32,6 @@ public class WeekFragment extends InjectionListFragment {
         super.onCreate(savedInstanceState);
 
         this.forecastAdapter = new ForecastAdapter(getActivity(), ForecastAdapter.Mode.DAILY);
-        setListAdapter(forecastAdapter);
-
         setRetainInstance(true);
     }
 
@@ -33,8 +39,9 @@ public class WeekFragment extends InjectionListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getListView().setDividerHeight(0);
-        getListView().setDivider(null);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(forecastAdapter);
 
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getDaily)

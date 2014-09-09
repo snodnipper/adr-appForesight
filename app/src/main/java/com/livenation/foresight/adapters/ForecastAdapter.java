@@ -2,10 +2,10 @@ package com.livenation.foresight.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +14,11 @@ import com.livenation.foresight.formatters.DayFormatter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
+import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
-import com.livenation.foresight.functional.Optional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,79 +27,93 @@ import butterknife.InjectView;
 
 import static com.livenation.foresight.functional.Functions.filterList;
 
-public class ForecastAdapter extends ArrayAdapter<WeatherData> {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
+    private final Context context;
     private final LayoutInflater inflater;
     private final Mode mode;
+    private final ArrayList<WeatherData> weatherData;
 
     public ForecastAdapter(@NonNull Context context, @NonNull Mode mode) {
-        super(context, R.layout.item_hourly_forecast);
-
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.mode = mode;
+        this.weatherData = new ArrayList<>();
     }
 
     public void bindForecast(Optional<Forecast> forecast) {
-        clear();
+        notifyItemRangeRemoved(0, weatherData.size());
+        weatherData.clear();
         List<WeatherData> weatherData = forecast.flatMap(Forecast::getWeatherData).orElse(Collections.emptyList());
         long now = System.currentTimeMillis() / 1000;
-        addAll(filterList(weatherData, d -> d.getTime() >= now));
+        List<WeatherData> newData = filterList(weatherData, d -> d.getTime() >= now);
+        if (newData.isEmpty()) {
+            notifyAll();
+        } else {
+            this.weatherData.addAll(newData);
+            notifyItemRangeInserted(0, newData.size());
+        }
     }
 
     public void handleError(@SuppressWarnings("UnusedParameters") Throwable ignored) {
-        clear();
+        notifyItemRangeRemoved(0, weatherData.size());
+        weatherData.clear();
+        notifyAll();
     }
 
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            switch (mode) {
-                case HOURLY:
-                    view = inflater.inflate(R.layout.item_hourly_forecast, parent, false);
-                    break;
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
+        switch (mode) {
+            case HOURLY:
+                return new ViewHolder(inflater.inflate(R.layout.item_hourly_forecast, viewGroup, false));
 
-                case DAILY:
-                    view = inflater.inflate(R.layout.item_daily_forecast, parent, false);
-                    break;
-            }
-            view.setTag(new ViewHolder(view));
+            case DAILY:
+                return new ViewHolder(inflater.inflate(R.layout.item_daily_forecast, viewGroup, false));
+
+            default:
+                throw new IllegalStateException();
         }
+    }
 
-        WeatherData forecast = getItem(position);
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        WeatherData forecast = weatherData.get(position);
 
-        ViewHolder holder = (ViewHolder) view.getTag();
-        view.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
+        holder.itemView.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
         holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
         switch (mode) {
             case HOURLY:
                 holder.time.setText(TimeFormatter.format(forecast.getTime()));
-                holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getApparentTemperature()));
+                holder.temperature.setText(TemperatureFormatter.format(context, forecast.getApparentTemperature()));
                 break;
 
             case DAILY:
-                holder.temperature.setText(TemperatureFormatter.format(getContext(), forecast.getTemperatureMin(), forecast.getTemperatureMax()));
+                holder.temperature.setText(TemperatureFormatter.format(context, forecast.getTemperatureMin(), forecast.getTemperatureMax()));
                 holder.time.setText(DayFormatter.format(forecast.getTime()));
                 break;
         }
         holder.conditions.setText(forecast.getSummary().orElse(""));
-
-        return view;
     }
 
-
-    class ViewHolder {
-        @InjectView(R.id.item_weather_data_icon) ImageView icon;
-        @InjectView(R.id.item_weather_data_time) TextView time;
-        @InjectView(R.id.item_weather_data_temperature) TextView temperature;
-        @InjectView(R.id.item_weather_data_conditions) TextView conditions;
-
-        ViewHolder(@NonNull View view) {
-            ButterKnife.inject(this, view);
-        }
+    @Override
+    public int getItemCount() {
+        return weatherData.size();
     }
 
     public static enum Mode {
         HOURLY,
         DAILY,
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.item_weather_data_icon) ImageView icon;
+        @InjectView(R.id.item_weather_data_time) TextView time;
+        @InjectView(R.id.item_weather_data_temperature) TextView temperature;
+        @InjectView(R.id.item_weather_data_conditions) TextView conditions;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+
+            ButterKnife.inject(this, itemView);
+        }
     }
 }
