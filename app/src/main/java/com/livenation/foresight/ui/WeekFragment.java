@@ -43,6 +43,10 @@ public class WeekFragment extends InjectionFragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(forecastAdapter);
 
+        Observable<Boolean> loading = bindFragment(this, presenter.isLoading);
+        loading.filter(is -> is)
+               .subscribe(unused -> forecastAdapter.clear());
+
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getDaily)
                 .subscribe(forecastAdapter::bindForecast, forecastAdapter::handleError);

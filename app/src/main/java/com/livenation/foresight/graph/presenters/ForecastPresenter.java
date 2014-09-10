@@ -38,7 +38,7 @@ import rx.subjects.ReplaySubject;
         Observable<Params> data = Observable.combineLatest(location.coordinates, preferences.unitSystem, Params::new);
         data.subscribe(p -> api.forecast(p.location.latitude, p.location.longitude, p.units, getLanguage())
                                .doOnNext(unused -> isLoading.onNext(false))
-                               .subscribe(forecast));
+                               .subscribe(forecast::onNext, forecast::onError));
     }
 
     public String getLanguage() {

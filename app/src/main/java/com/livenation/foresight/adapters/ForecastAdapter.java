@@ -41,23 +41,21 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     public void bindForecast(Optional<Forecast> forecast) {
-        notifyItemRangeRemoved(0, weatherData.size());
-        weatherData.clear();
+        clear();
+
         List<WeatherData> weatherData = forecast.flatMap(Forecast::getWeatherData).orElse(Collections.emptyList());
         long now = System.currentTimeMillis() / 1000;
-        List<WeatherData> newData = filterList(weatherData, d -> d.getTime() >= now);
-        if (newData.isEmpty()) {
-            notifyAll();
-        } else {
-            this.weatherData.addAll(newData);
-            notifyItemRangeInserted(0, newData.size());
-        }
+        this.weatherData.addAll(filterList(weatherData, d -> d.getTime() >= now));
+        notifyItemRangeInserted(0, weatherData.size());
+    }
+
+    public void clear() {
+        notifyItemRangeRemoved(0, weatherData.size());
+        weatherData.clear();
     }
 
     public void handleError(@SuppressWarnings("UnusedParameters") Throwable ignored) {
-        notifyItemRangeRemoved(0, weatherData.size());
-        weatherData.clear();
-        notifyAll();
+        clear();
     }
 
     @Override

@@ -1,14 +1,11 @@
 package com.livenation.foresight.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.StaticFragmentAdapter;
@@ -32,14 +29,12 @@ import static rx.android.observables.AndroidObservable.bindActivity;
 public class HomeActivity extends InjectionActivity {
     @Inject ForecastPresenter presenter;
     @InjectView(R.id.activity_home_view) View view;
-    @InjectView(R.id.activity_home_loading) ProgressBar loadingIndicator;
     @InjectView(R.id.activity_home_pager) ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadingIndicator.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Class<?>[] {
                 TodayFragment.class,
                 WeekFragment.class,
@@ -49,10 +44,6 @@ public class HomeActivity extends InjectionActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-        Observable<Boolean> isLoading = bindActivity(this, presenter.isLoading);
-        isLoading.map(is -> is ? View.VISIBLE : View.INVISIBLE)
-                 .subscribe(loadingIndicator::setVisibility);
 
         Observable<Report> forecast = bindActivity(this, presenter.forecast);
         forecast.map(Report::getCurrently)

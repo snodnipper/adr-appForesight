@@ -1,9 +1,12 @@
 package com.livenation.foresight.ui;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
@@ -27,9 +30,12 @@ import static rx.android.observables.AndroidObservable.bindFragment;
 
 @InjectLayout(R.layout.fragment_now)
 public class NowFragment extends InjectionFragment {
-    @InjectView(R.id.fragment_forecast_location) TextView location;
-    @InjectView(R.id.fragment_forecast_temperature) TextView temperature;
-    @InjectView(R.id.fragment_forecast_conditions) TextView conditions;
+    private static final long ANIMATION_DURATION_MS = 250;
+
+    @InjectView(R.id.fragment_now_progress_bar) ProgressBar loadingIndicator;
+    @InjectView(R.id.fragment_now_location) TextView location;
+    @InjectView(R.id.fragment_now_temperature) TextView temperature;
+    @InjectView(R.id.fragment_now_conditions) TextView conditions;
 
     @Inject ForecastPresenter presenter;
     @Inject ReverseGeocoder geocoder;
@@ -45,14 +51,35 @@ public class NowFragment extends InjectionFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        loadingIndicator.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+
+        Observable<Boolean> loading = bindFragment(this, presenter.isLoading);
+        loading.filter(is -> is)
+               .subscribe(this::loadingStarted);
+
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getCurrently)
-                .subscribe(this::bindForecast, OnErrors.showDialogFrom(getFragmentManager()));
+                .subscribe(this::bindForecast, this::handleError);
 
         Observable<String> locationName = bindFragment(this, geocoder.name);
         locationName.subscribe(location::setText);
     }
 
+
+    public void loadingStarted(Boolean ignored) {
+        conditions.setText(R.string.loading_placeholder_generic);
+
+        temperature.animate()
+                   .setDuration(ANIMATION_DURATION_MS)
+                   .alpha(0f)
+                   .scaleX(0f)
+                   .scaleY(0f);
+        loadingIndicator.animate()
+                  .setDuration(ANIMATION_DURATION_MS)
+                  .alpha(1f)
+                  .scaleX(1f)
+                  .scaleY(1f);
+    }
 
     public void bindForecast(Optional<WeatherData> data) {
         data.ifPresent(currently -> {
@@ -64,6 +91,22 @@ public class NowFragment extends InjectionFragment {
                 temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
             else
                 temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
+
+            temperature.animate()
+                       .setDuration(ANIMATION_DURATION_MS)
+                       .alpha(1f)
+                       .scaleX(1f)
+                       .scaleY(1f);
+
+            loadingIndicator.animate()
+                      .setDuration(ANIMATION_DURATION_MS)
+                      .alpha(0f)
+                      .scaleX(0f)
+                      .scaleY(0f);
         });
+    }
+
+    public void handleError(Throwable error) {
+        OnErrors.showDialogFrom(getFragmentManager()).call(error);
     }
 }
