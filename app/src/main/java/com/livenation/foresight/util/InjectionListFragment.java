@@ -17,7 +17,7 @@ public class InjectionListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        SetContentView contentView = getClass().getAnnotation(SetContentView.class);
+        InjectLayout contentView = getClass().getAnnotation(InjectLayout.class);
         if (contentView == null) {
             return super.onCreateView(inflater, container, savedInstanceState);
         } else {

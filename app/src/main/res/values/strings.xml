@@ -18,5 +18,7 @@
     <string name="action_refresh">Refresh</string>
     <string name="current_conditions">Current Conditions</string>
     <string name="error_dialog_title">Error</string>
+    <string name="fragment_title_today">Today</string>
+    <string name="fragment_title_week">This Week</string>
 
 </resources>

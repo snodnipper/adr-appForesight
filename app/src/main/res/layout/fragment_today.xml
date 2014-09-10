@@ -1,52 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/fragment_forecast_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/gap_large"
-        android:textAppearance="@style/AppTheme.Text.Forecast.Title"
+        android:padding="@dimen/gap_medium"
         android:gravity="center"
-        android:text="@string/mock_location"/>
-
-    <TextView
-        android:id="@+id/fragment_forecast_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/gap_large"
-        android:layout_below="@id/fragment_forecast_location"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="@style/AppTheme.Text.Forecast.BigTemperature"
-        android:gravity="center"
-        android:text="@string/loading_placeholder_temperature"
-        android:drawablePadding="@dimen/gap_large" />
-
-    <TextView
-        android:id="@+id/fragment_forecast_conditions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/gap_large"
-        android:layout_below="@id/fragment_forecast_temperature"
-        android:textAppearance="@style/AppTheme.Text.Forecast.Body"
-        android:gravity="center"
-        android:text="@string/loading_placeholder_generic" />
+        android:textAppearance="@style/AppTheme.Text.Heading"
+        android:text="@string/fragment_title_today" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_today_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/fragment_forecast_conditions" />
+        android:layout_height="match_parent" />
 
-</RelativeLayout>
+</LinearLayout>

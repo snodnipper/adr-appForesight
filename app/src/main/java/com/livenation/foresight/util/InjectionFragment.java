@@ -18,7 +18,7 @@ public class InjectionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        SetContentView contentView = getClass().getAnnotation(SetContentView.class);
+        InjectLayout contentView = getClass().getAnnotation(InjectLayout.class);
         if (contentView == null)
             throw new IllegalStateException(getClass().getSimpleName() + " does not specify @SetContentView");
         View view = inflater.inflate(contentView.value(), container, false);

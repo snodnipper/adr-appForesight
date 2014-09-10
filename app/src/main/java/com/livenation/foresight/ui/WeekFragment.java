@@ -10,8 +10,8 @@ import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionFragment;
-import com.livenation.foresight.util.SetContentView;
 
 import javax.inject.Inject;
 
@@ -20,7 +20,7 @@ import rx.Observable;
 
 import static rx.android.observables.AndroidObservable.bindFragment;
 
-@SetContentView(R.layout.fragment_week)
+@InjectLayout(R.layout.fragment_week)
 public class WeekFragment extends InjectionFragment {
     @Inject ForecastPresenter presenter;
     @InjectView(R.id.fragment_week_recycler_view) RecyclerView recyclerView;

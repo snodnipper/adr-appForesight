@@ -15,7 +15,7 @@ public class InjectionActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SetContentView contentView = getClass().getAnnotation(SetContentView.class);
+        InjectLayout contentView = getClass().getAnnotation(InjectLayout.class);
         if (contentView == null)
             throw new IllegalStateException(getClass().getSimpleName() + " does not specify @SetContentView");
         setContentView(contentView.value());

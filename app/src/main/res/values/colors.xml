@@ -4,7 +4,7 @@
     <color name="white">#ffffff</color>
     <color name="transparent">#00ffffff</color>
 
-    <color name="divider_color">#22000000</color>
+    <color name="divider_color">#22ffffff</color>
 
     <color name="condition_neutral">#0081a9</color>
     <color name="condition_neutral_night">#130098</color>

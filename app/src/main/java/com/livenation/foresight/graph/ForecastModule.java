@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.livenation.foresight.functional.OptionalJacksonModule;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.ui.HomeActivity;
+import com.livenation.foresight.ui.NowFragment;
 import com.livenation.foresight.ui.TodayFragment;
 import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.ui.WeekFragment;
@@ -21,7 +22,13 @@ import dagger.Provides;
 import retrofit.RestAdapter;
 import retrofit.converter.JacksonConverter;
 
-@Module(injects = {HomeActivity.class, TodayFragment.class, WeekFragment.class, ForecastPresenter.class})
+@Module(injects = {
+        HomeActivity.class,
+        NowFragment.class,
+        TodayFragment.class,
+        WeekFragment.class,
+        ForecastPresenter.class,
+})
 @SuppressWarnings("UnusedDeclaration")
 public class ForecastModule {
     private final Context applicationContext;
