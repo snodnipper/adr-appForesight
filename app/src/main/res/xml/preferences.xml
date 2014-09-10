@@ -10,4 +10,10 @@
         android:entries="@array/unit_system_names"
         android:entryValues="@array/unit_system_codes"/>
 
+    <Preference android:title="Powered by Forecast">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="http://forecast.io" />
+    </Preference>
+
 </PreferenceScreen>
