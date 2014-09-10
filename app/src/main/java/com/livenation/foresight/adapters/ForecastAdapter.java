@@ -75,9 +75,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         WeatherData forecast = weatherData.get(position);
-
-        holder.itemView.setBackgroundResource(IconFormatter.colorResourceForIcon(forecast.getIcon()));
-        holder.icon.setImageResource(IconFormatter.imageResourceForIcon(forecast.getIcon()));
         switch (mode) {
             case HOURLY:
                 holder.time.setText(TimeFormatter.format(forecast.getTime()));
@@ -103,7 +100,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.item_weather_data_icon) ImageView icon;
         @InjectView(R.id.item_weather_data_time) TextView time;
         @InjectView(R.id.item_weather_data_temperature) TextView temperature;
         @InjectView(R.id.item_weather_data_conditions) TextView conditions;

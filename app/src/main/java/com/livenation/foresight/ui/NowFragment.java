@@ -5,6 +5,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import static rx.android.observables.AndroidObservable.bindFragment;
 
 @InjectLayout(R.layout.fragment_now)
 public class NowFragment extends InjectionFragment {
+    @InjectView(R.id.fragment_now_view) View view;
     @InjectView(R.id.fragment_now_progress_bar) ProgressBar loadingIndicator;
     @InjectView(R.id.fragment_now_location) TextView location;
     @InjectView(R.id.fragment_now_temperature) TextView temperature;
@@ -39,10 +42,11 @@ public class NowFragment extends InjectionFragment {
     @Inject ForecastPresenter presenter;
     @Inject ReverseGeocoder geocoder;
 
+    private GestureDetector doubleClickDetector;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setRetainInstance(true);
     }
 
@@ -87,6 +91,9 @@ public class NowFragment extends InjectionFragment {
                 temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
             else
                 temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
+
+            int colorResId = IconFormatter.colorResourceForIcon(currently.getIcon());
+            view.setBackgroundResource(colorResId);
 
             animate(temperature).alpha(1f)
                                 .scaleX(1f)

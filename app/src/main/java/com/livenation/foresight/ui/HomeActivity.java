@@ -28,7 +28,6 @@ import static rx.android.observables.AndroidObservable.bindActivity;
 @InjectLayout(R.layout.activity_home)
 public class HomeActivity extends InjectionActivity {
     @Inject ForecastPresenter presenter;
-    @InjectView(R.id.activity_home_view) View view;
     @InjectView(R.id.activity_home_pager) ViewPager viewPager;
 
     @Override
@@ -39,15 +38,17 @@ public class HomeActivity extends InjectionActivity {
                 TodayFragment.class,
                 WeekFragment.class,
         }));
+
+        //noinspection ConstantConditions
+        getActionBar().setDisplayShowTitleEnabled(false);
+        getActionBar().setDisplayShowHomeEnabled(false);
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
 
-        Observable<Report> forecast = bindActivity(this, presenter.forecast);
-        forecast.map(Report::getCurrently)
-                .subscribe(this::bindForecast, OnErrors.SILENTLY_IGNORE_THEM);
+        presenter.reloadIfRecommended();
     }
 
     @Override
@@ -70,13 +71,5 @@ public class HomeActivity extends InjectionActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    public void bindForecast(Optional<WeatherData> data) {
-        data.ifPresent(forecast -> {
-            int colorResId = IconFormatter.colorResourceForIcon(forecast.getIcon());
-            view.setBackgroundResource(colorResId);
-        });
     }
 }

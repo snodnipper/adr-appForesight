@@ -5,17 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/gap_medium"
-    android:gravity="center_vertical"
-    android:background="@color/condition_neutral">
-
-    <ImageView
-        android:id="@+id/item_weather_data_icon"
-        android:layout_width="@dimen/small_icon_width"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/gap_medium"
-        android:layout_marginEnd="@dimen/gap_medium"
-        android:src="@drawable/clear_day"
-        android:contentDescription="@string/current_conditions"/>
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/item_weather_data_time"

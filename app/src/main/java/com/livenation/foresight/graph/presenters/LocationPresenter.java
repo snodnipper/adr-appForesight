@@ -18,6 +18,7 @@ import rx.subjects.ReplaySubject;
 @Singleton
 public class LocationPresenter implements Presenter {
     private final LocationManager locationManager;
+    private boolean wantsUpdate = false;
 
     public final ReplaySubject<Coordinates> coordinates = ReplaySubject.create(1);
 
@@ -36,7 +37,7 @@ public class LocationPresenter implements Presenter {
         }
 
         Location location = locationManager.getLastKnownLocation(providerName);
-        if (location != null) {
+        if (location != null && !wantsUpdate) {
             coordinates.onNext(Coordinates.fromLocation(location));
         } else {
             locationManager.requestSingleUpdate(providerName, new LocationListener() {
@@ -60,7 +61,13 @@ public class LocationPresenter implements Presenter {
                     coordinates.onNext(Coordinates.DEFAULT);
                 }
             }, Looper.getMainLooper());
+
+            this.wantsUpdate = false;
         }
+    }
+
+    public void setWantsUpdate() {
+        this.wantsUpdate = true;
     }
 
     private Criteria makeCriteria() {

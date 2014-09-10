@@ -1,22 +1,25 @@
 package com.livenation.foresight.formatters;
 
 import android.location.Address;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 
 public class AddressFormatter {
-    public static String format(Address address) {
-        ArrayList<String> pieces = new ArrayList<>();
-
+    public static @NonNull String format(@NonNull Address address) {
         String locality = address.getLocality();
         if (!TextUtils.isEmpty(locality))
-            pieces.add(locality);
+            return locality;
 
         String adminArea = address.getAdminArea();
         if (!TextUtils.isEmpty(adminArea))
-            pieces.add(adminArea);
+            return adminArea;
 
-        return TextUtils.join(", ", pieces);
+        String country = address.getCountryName();
+        if (!TextUtils.isEmpty(country))
+            return country;
+
+        return "Current Location";
     }
 }
