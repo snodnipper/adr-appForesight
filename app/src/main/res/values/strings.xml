@@ -10,6 +10,9 @@
     <string name="temperature_fmt">%1$.0fº</string>
     <string name="temperature_range_fmt">%1$.0fº/%2$.0fº</string>
 
+    <string name="now_wind_fmt">Wind: %1$.0f %2$s %3$s</string>
+    <string name="now_humidity_fmt">Humidity: %1$d%%</string>
+
     <string name="mock_temperature">90º</string>
     <string name="mock_location">San Francisco, CA</string>
     <string name="mock_conditions">Partly cloudy throughout the day.</string>
@@ -20,5 +23,19 @@
     <string name="error_dialog_title">Error</string>
     <string name="fragment_title_today">Today</string>
     <string name="fragment_title_week">This Week</string>
+    <string name="compass_bearing_n">N</string>
+    <string name="compass_bearing_ne">NE</string>
+    <string name="compass_bearing_e">E</string>
+    <string name="compass_bearing_se">SE</string>
+    <string name="compass_bearing_s">S</string>
+    <string name="compass_bearing_sw">SW</string>
+    <string name="compass_bearing_w">W</string>
+    <string name="compass_bearing_nw">NW</string>
+    <string name="compass_bearing_unknown">\?</string>
+    <string name="unit_speed_mph">mph</string>
+    <string name="unit_speed_m_s">m/s</string>
+    <string name="unit_speed_km_h">km/h</string>
+    <string name="units_distance_km">km</string>
+    <string name="units_distance_miles">mi</string>
 
 </resources>

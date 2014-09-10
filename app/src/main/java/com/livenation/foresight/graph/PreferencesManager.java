@@ -26,7 +26,7 @@ import rx.subjects.ReplaySubject;
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
-    private String getUnitSystem() {
+    public String getUnitSystem() {
         return sharedPreferences.getString(KEY_UNIT_SYSTEM, ForecastApi.UNITS_US_CUSTOMARY);
     }
 

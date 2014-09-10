@@ -5,15 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/activity_vertical_margin"
     android:background="@color/condition_neutral">
 
     <TextView
         android:id="@+id/fragment_now_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/gap_large"
         android:textAppearance="@style/AppTheme.Text.Forecast.Title"
         android:gravity="center"
@@ -22,8 +20,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/gap_large">
 
         <TextView
@@ -49,11 +45,34 @@
         android:id="@+id/fragment_now_conditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/gap_large"
-        android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+        android:layout_marginBottom="@dimen/gap_medium"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.Bold.White"
         android:gravity="center"
         android:text="@string/loading_placeholder_generic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fragment_now_wind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+            android:gravity="start"
+            android:text="@string/now_wind_fmt"/>
+
+        <TextView
+            android:id="@+id/fragment_now_humidity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+            android:gravity="end"
+            android:text="@string/now_humidity_fmt"/>
+
+    </LinearLayout>
 
 </LinearLayout>

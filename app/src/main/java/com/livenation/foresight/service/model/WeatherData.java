@@ -30,7 +30,7 @@ public class WeatherData {
     @JsonProperty("temperatureMaxTime") private long temperatureMaxTime;
     @JsonProperty("time") private long time;
     @JsonProperty("visibility") private double visibility;
-    @JsonProperty("windBearing") private double windBearing;
+    @JsonProperty("windBearing") private long windBearing;
     @JsonProperty("windSpeed") private double windSpeed;
 
 
@@ -126,7 +126,7 @@ public class WeatherData {
         return visibility;
     }
 
-    public double getWindBearing() {
+    public long getWindBearing() {
         return windBearing;
     }
 
