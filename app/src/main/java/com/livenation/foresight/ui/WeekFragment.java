@@ -1,7 +1,6 @@
 package com.livenation.foresight.ui;
 
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +9,7 @@ import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.util.Animations;
 import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionFragment;
 
@@ -40,7 +40,7 @@ public class WeekFragment extends InjectionFragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setItemAnimator(Animations.createItemAnimator());
         recyclerView.setAdapter(forecastAdapter);
 
         Observable<Boolean> loading = bindFragment(this, presenter.isLoading);

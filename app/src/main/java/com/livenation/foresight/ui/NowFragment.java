@@ -26,12 +26,11 @@ import javax.inject.Inject;
 import butterknife.InjectView;
 import rx.Observable;
 
+import static com.livenation.foresight.util.Animations.animate;
 import static rx.android.observables.AndroidObservable.bindFragment;
 
 @InjectLayout(R.layout.fragment_now)
 public class NowFragment extends InjectionFragment {
-    private static final long ANIMATION_DURATION_MS = 250;
-
     @InjectView(R.id.fragment_now_progress_bar) ProgressBar loadingIndicator;
     @InjectView(R.id.fragment_now_location) TextView location;
     @InjectView(R.id.fragment_now_temperature) TextView temperature;
@@ -69,16 +68,13 @@ public class NowFragment extends InjectionFragment {
     public void loadingStarted(Boolean ignored) {
         conditions.setText(R.string.loading_placeholder_generic);
 
-        temperature.animate()
-                   .setDuration(ANIMATION_DURATION_MS)
-                   .alpha(0f)
-                   .scaleX(0f)
-                   .scaleY(0f);
-        loadingIndicator.animate()
-                  .setDuration(ANIMATION_DURATION_MS)
-                  .alpha(1f)
-                  .scaleX(1f)
-                  .scaleY(1f);
+        animate(temperature).alpha(0f)
+                            .scaleX(0f)
+                            .scaleY(0f);
+
+        animate(loadingIndicator).alpha(1f)
+                                 .scaleX(1f)
+                                 .scaleY(1f);
     }
 
     public void bindForecast(Optional<WeatherData> data) {
@@ -92,17 +88,13 @@ public class NowFragment extends InjectionFragment {
             else
                 temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
 
-            temperature.animate()
-                       .setDuration(ANIMATION_DURATION_MS)
-                       .alpha(1f)
-                       .scaleX(1f)
-                       .scaleY(1f);
+            animate(temperature).alpha(1f)
+                                .scaleX(1f)
+                                .scaleY(1f);
 
-            loadingIndicator.animate()
-                      .setDuration(ANIMATION_DURATION_MS)
-                      .alpha(0f)
-                      .scaleX(0f)
-                      .scaleY(0f);
+            animate(loadingIndicator).alpha(0f)
+                                     .scaleX(0f)
+                                     .scaleY(0f);
         });
     }
 
