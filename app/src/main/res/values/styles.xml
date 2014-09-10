@@ -1,10 +1,14 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:actionOverflowButtonStyle">@style/AppTheme.ActionOverflow</item>
         <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="AppTheme.NonFloatingActionBar">
+        <item name="android:windowActionBarOverlay">false</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="android:style/Widget.Holo.ActionBar">

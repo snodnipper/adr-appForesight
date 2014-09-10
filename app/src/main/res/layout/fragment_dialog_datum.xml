@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_dialog_datum_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@color/condition_neutral">
+
+    <TextView
+        android:id="@+id/fragment_dialog_datum_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/gap_medium"
+        android:layout_gravity="center"
+        android:textAppearance="@style/AppTheme.Text.Forecast.BigTemperature"
+        android:gravity="center"
+        android:text="@string/loading_placeholder_temperature"
+        android:drawablePadding="@dimen/gap_large" />
+
+    <TextView
+        android:id="@+id/fragment_dialog_datum_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/gap_large"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.Bold.White"
+        android:gravity="center"
+        android:text="@string/loading_placeholder_generic" />
+
+    <TextView
+        android:id="@+id/fragment_dialog_datum_wind"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/gap_small"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+        android:text="@string/now_wind_fmt"/>
+
+    <TextView
+        android:id="@+id/fragment_dialog_datum_humidity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/gap_small"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+        android:text="@string/now_humidity_fmt"/>
+
+    <TextView
+        android:id="@+id/fragment_dialog_datum_precipitation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/AppTheme.Text.Forecast.Body.White"
+        android:text="@string/now_precipitation_probability_fmt"/>
+
+</TableLayout>

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.livenation.foresight.functional.OptionalJacksonModule;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
+import com.livenation.foresight.ui.DatumDialogFragment;
 import com.livenation.foresight.ui.HomeActivity;
 import com.livenation.foresight.ui.NowFragment;
 import com.livenation.foresight.ui.TodayFragment;
@@ -28,6 +29,7 @@ import retrofit.converter.JacksonConverter;
         TodayFragment.class,
         WeekFragment.class,
         ForecastPresenter.class,
+        DatumDialogFragment.class,
 })
 @SuppressWarnings("UnusedDeclaration")
 public class ForecastModule {

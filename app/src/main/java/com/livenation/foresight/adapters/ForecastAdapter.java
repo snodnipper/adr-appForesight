@@ -6,18 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
 import com.livenation.foresight.formatters.DayFormatter;
-import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
 import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,11 +26,13 @@ import butterknife.InjectView;
 
 import static com.livenation.foresight.functional.Functions.filterList;
 
-public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> implements View.OnClickListener {
     private final Context context;
     private final LayoutInflater inflater;
     private final Mode mode;
     private final ArrayList<WeatherData> weatherData;
+
+    private OnItemClickListener onItemClickListener;
 
     public ForecastAdapter(@NonNull Context context, @NonNull Mode mode) {
         this.context = context;
@@ -39,6 +40,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         this.mode = mode;
         this.weatherData = new ArrayList<>();
     }
+
+
+    //region Binding
 
     public void bindForecast(Optional<Forecast> forecast) {
         clear();
@@ -58,22 +62,55 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         clear();
     }
 
+    //endregion
+
+
+    //region Click Support
+
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    @Override
+    public void onClick(@NonNull View view) {
+        if (getOnItemClickListener() != null) {
+            int position = (Integer) view.getTag();
+            WeatherData item = weatherData.get(position);
+            getOnItemClickListener().onItemClicked(item, position);
+        }
+    }
+
+    //endregion
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
+        View view;
         switch (mode) {
             case HOURLY:
-                return new ViewHolder(inflater.inflate(R.layout.item_hourly_forecast, viewGroup, false));
+                view = inflater.inflate(R.layout.item_hourly_forecast, viewGroup, false);
+                break;
 
             case DAILY:
-                return new ViewHolder(inflater.inflate(R.layout.item_daily_forecast, viewGroup, false));
+                view = inflater.inflate(R.layout.item_daily_forecast, viewGroup, false);
+                break;
 
             default:
                 throw new IllegalStateException();
         }
+
+        view.setOnClickListener(this);
+
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.itemView.setTag(position);
         WeatherData forecast = weatherData.get(position);
         switch (mode) {
             case HOURLY:
@@ -94,11 +131,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         return weatherData.size();
     }
 
-    public static enum Mode {
-        HOURLY,
-        DAILY,
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.item_weather_data_time) TextView time;
         @InjectView(R.id.item_weather_data_temperature) TextView temperature;
@@ -109,5 +141,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
             ButterKnife.inject(this, itemView);
         }
+    }
+
+    public static enum Mode {
+        HOURLY,
+        DAILY,
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(WeatherData item, int position);
     }
 }

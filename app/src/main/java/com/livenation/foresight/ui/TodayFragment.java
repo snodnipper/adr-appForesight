@@ -9,6 +9,7 @@ import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.ForecastAdapter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
+import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.util.Animations;
 import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionFragment;
@@ -21,7 +22,7 @@ import rx.Observable;
 import static rx.android.observables.AndroidObservable.bindFragment;
 
 @InjectLayout(R.layout.fragment_today)
-public class TodayFragment extends InjectionFragment {
+public class TodayFragment extends InjectionFragment implements ForecastAdapter.OnItemClickListener {
     @InjectView(R.id.fragment_today_recycler_view) RecyclerView recyclerView;
 
     @Inject ForecastPresenter presenter;
@@ -32,6 +33,7 @@ public class TodayFragment extends InjectionFragment {
         super.onCreate(savedInstanceState);
 
         this.forecastAdapter = new ForecastAdapter(getActivity(), ForecastAdapter.Mode.HOURLY);
+        forecastAdapter.setOnItemClickListener(this);
         setRetainInstance(true);
     }
 
@@ -50,5 +52,11 @@ public class TodayFragment extends InjectionFragment {
         Observable<Report> forecast = bindFragment(this, presenter.forecast);
         forecast.map(Report::getHourly)
                 .subscribe(forecastAdapter::bindForecast, forecastAdapter::handleError);
+    }
+
+    @Override
+    public void onItemClicked(WeatherData item, int position) {
+        DatumDialogFragment dialogFragment = DatumDialogFragment.newInstance(item, ForecastAdapter.Mode.HOURLY);
+        dialogFragment.show(getFragmentManager(), DatumDialogFragment.TAG);
     }
 }

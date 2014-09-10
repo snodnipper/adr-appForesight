@@ -3,10 +3,12 @@ package com.livenation.foresight.service.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.livenation.foresight.functional.Optional;
 
+import java.io.Serializable;
+
 /**
  * A blob of weather data from the forecast.io API.
  */
-public class WeatherData {
+public class WeatherData implements Serializable {
     @JsonProperty("apparentTemperature") private double apparentTemperature;
     @JsonProperty("apparentTemperatureMin") private double apparentTemperatureMin;
     @JsonProperty("apparentTemperatureMinTime") private long apparentTemperatureMinTime;
