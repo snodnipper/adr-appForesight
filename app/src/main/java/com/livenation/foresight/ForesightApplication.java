@@ -5,6 +5,7 @@ import android.app.Application;
 import com.livenation.foresight.graph.ForecastModule;
 
 import dagger.ObjectGraph;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class ForesightApplication extends Application {
     private ObjectGraph objectGraph;
@@ -18,6 +19,8 @@ public class ForesightApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        CalligraphyConfig.initDefault("fonts/PTS55F.ttf", R.attr.fontPath);
 
         this.objectGraph = ObjectGraph.create(new ForecastModule(getApplicationContext()));
 
