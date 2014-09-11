@@ -2,11 +2,19 @@
 <resources>
 
     <string name="app_name">Foresight</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+
+    <string name="error_dialog_title">Error</string>
+    <string name="fragment_title_today">Today</string>
+    <string name="fragment_title_week">Week</string>
+
+
+    <!--region Data-->
 
     <string name="loading_placeholder_generic">Loading…</string>
     <string name="loading_placeholder_temperature">--º</string>
+
     <string name="temperature_fmt">%1$.0fº</string>
     <string name="temperature_range_fmt">%1$.0fº/%2$.0fº</string>
 
@@ -14,16 +22,22 @@
     <string name="now_humidity_fmt">Humidity: %1$d%%</string>
     <string name="now_precipitation_probability_fmt">Chance of Precipitation: %1$d%%</string>
 
+    <string name="current_conditions">Current Conditions</string>
+
+    <!--endregion-->
+
+
+    <!--region Mock-->
+
     <string name="mock_temperature">90º</string>
     <string name="mock_location">San Francisco, CA</string>
     <string name="mock_conditions">Partly cloudy throughout the day.</string>
     <string name="mock_time">9:00pm</string>
-    <string name="unit_system">Unit System</string>
-    <string name="action_refresh">Refresh</string>
-    <string name="current_conditions">Current Conditions</string>
-    <string name="error_dialog_title">Error</string>
-    <string name="fragment_title_today">Today</string>
-    <string name="fragment_title_week">Week</string>
+
+    <!--endregion-->
+
+
+    <!--region Units-->
 
     <string name="compass_bearing_n">N</string>
     <string name="compass_bearing_ne">NE</string>
@@ -40,5 +54,27 @@
     <string name="unit_speed_km_h">km/h</string>
     <string name="units_distance_km">km</string>
     <string name="units_distance_miles">mi</string>
+
+    <!--endregion-->
+
+
+    <!--region Settings-->
+
+    <string name="prefs_section_settings">Settings</string>
+    <string name="prefs_title_unit_system">Unit System</string>
+
+    <string name="prefs_section_data_attributions">Data</string>
+    <string name="prefs_attribution_data_source">Powered by Forecast</string>
+
+    <string name="prefs_section_icon_attributions">Icons</string>
+    <string name="prefs_attribution_icon_moon">Moon by Stephen McKamey</string>
+    <string name="prefs_attribution_icon_sleet">Rain And Snow by Stefan Parnarov</string>
+    <string name="prefs_attribution_icon_rain">Rain by Kenneth Appiah</string>
+    <string name="prefs_attribution_icon_cloudy">Cloud by Ben Rex Furneaux</string>
+    <string name="prefs_attribution_icon_fog">Fog by OliM</string>
+    <string name="prefs_attribution_app_icon">Drop by Wayne Tyler Sall</string>
+    <string name="prefs_attribution_icons_source">from The Noun Project</string>
+
+    <!--endregion-->
 
 </resources>

@@ -2,18 +2,75 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:key="unit_system"
-        android:title="@string/unit_system"
-        android:dialogTitle="@string/unit_system"
-        android:defaultValue="us"
-        android:entries="@array/unit_system_names"
-        android:entryValues="@array/unit_system_codes"/>
+    <PreferenceCategory
+        android:title="@string/prefs_section_settings">
 
-    <Preference android:title="Powered by Forecast">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="http://forecast.io" />
-    </Preference>
+        <ListPreference
+            android:key="unit_system"
+            android:title="@string/prefs_title_unit_system"
+            android:dialogTitle="@string/prefs_title_unit_system"
+            android:defaultValue="us"
+            android:entries="@array/unit_system_names"
+            android:entryValues="@array/unit_system_codes"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_section_data_attributions">
+
+        <Preference android:title="@string/prefs_attribution_data_source">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://forecast.io" />
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_section_icon_attributions">
+
+        <Preference android:title="@string/prefs_attribution_icon_moon">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/mckamey" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_icon_sleet">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/sapi" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_icon_rain">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/kenset" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_icon_cloudy">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/benfurneaux" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_icon_fog">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/OliM" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_app_icon">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/wayne.t.sall" />
+        </Preference>
+
+        <Preference android:title="@string/prefs_attribution_icons_source">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.thenounproject.com/" />
+        </Preference>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
