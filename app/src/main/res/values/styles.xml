@@ -21,12 +21,6 @@
 
     <style name="AppTheme.Text" parent="android:TextAppearance" />
 
-    <style name="AppTheme.Text.Heading">
-        <item name="android:fontFamily">sans-serif-condensed</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
     <style name="AppTheme.Text.Forecast" />
 
     <style name="AppTheme.Text.Forecast.Title">

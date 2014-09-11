@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/gap_medium"
-        android:gravity="center"
-        android:textAppearance="@style/AppTheme.Text.Heading"
-        android:text="@string/fragment_title_week" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_week_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</LinearLayout>
+</FrameLayout>

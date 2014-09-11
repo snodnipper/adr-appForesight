@@ -23,7 +23,7 @@
     <string name="current_conditions">Current Conditions</string>
     <string name="error_dialog_title">Error</string>
     <string name="fragment_title_today">Today</string>
-    <string name="fragment_title_week">This Week</string>
+    <string name="fragment_title_week">Week</string>
 
     <string name="compass_bearing_n">N</string>
     <string name="compass_bearing_ne">NE</string>

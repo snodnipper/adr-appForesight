@@ -2,41 +2,38 @@ package com.livenation.foresight.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.livenation.foresight.R;
 import com.livenation.foresight.adapters.StaticFragmentAdapter;
-import com.livenation.foresight.formatters.IconFormatter;
-import com.livenation.foresight.functional.OnErrors;
-import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
-import com.livenation.foresight.service.model.Report;
-import com.livenation.foresight.service.model.WeatherData;
 import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionActivity;
 
 import javax.inject.Inject;
 
 import butterknife.InjectView;
-import rx.Observable;
 
-import static rx.android.observables.AndroidObservable.bindActivity;
+import static com.livenation.foresight.adapters.StaticFragmentAdapter.Tab;
 
 @InjectLayout(R.layout.activity_home)
 public class HomeActivity extends InjectionActivity {
     @Inject ForecastPresenter presenter;
+    @InjectView(R.id.activity_home_title_strip) PagerTitleStrip titleStrip;
     @InjectView(R.id.activity_home_pager) ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Class<?>[] {
-                TodayFragment.class,
-                WeekFragment.class,
+        titleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Tab[] {
+                Tab.from(TodayFragment.class, getString(R.string.fragment_title_today)),
+                Tab.from(WeekFragment.class, getString(R.string.fragment_title_week)),
         }));
 
         //noinspection ConstantConditions
