@@ -39,13 +39,13 @@ import rx.subjects.ReplaySubject;
     @Override
     public void reload() {
         isLoading.onNext(true);
-        Observable<Params> data = Observable.combineLatest(location.coordinates, preferences.unitSystem, Params::new);
-        data.subscribe(p -> api.forecast(p.location.latitude, p.location.longitude, p.units, getLanguage())
-                               .doOnNext(unused -> {
-                                   isLoading.onNext(false);
-                                   timeOfLastUpdate = System.currentTimeMillis();
-                               })
-                               .subscribe(forecast::onNext, forecast::onError));
+        Observable<Params> forRequest = Observable.combineLatest(location.coordinates, preferences.unitSystem, Params::new);
+        forRequest.subscribe(p -> api.forecast(p.location.latitude, p.location.longitude, p.units, getLanguage())
+                  .doOnNext(unused -> {
+                      isLoading.onNext(false);
+                      timeOfLastUpdate = System.currentTimeMillis();
+                  })
+                  .subscribe(forecast::onNext, forecast::onError));
     }
 
     public String getLanguage() {
