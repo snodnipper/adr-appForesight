@@ -1,10 +1,13 @@
 package com.livenation.foresight.graph.presenters;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.service.model.Coordinates;
 import com.livenation.foresight.service.model.Report;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -48,7 +51,11 @@ import rx.subjects.ReplaySubject;
     }
 
     public String getLanguage() {
-        return ForecastApi.DEFAULT_LANGUAGE;
+        String systemLanguage = Locale.getDefault().getLanguage();
+        if (!TextUtils.isEmpty(systemLanguage))
+            return systemLanguage;
+        else
+            return ForecastApi.DEFAULT_LANGUAGE;
     }
 
     public long getTimeOfLastUpdate() {
