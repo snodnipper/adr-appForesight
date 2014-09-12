@@ -32,11 +32,11 @@ import rx.subjects.ReplaySubject;
         this.preferences = preferences;
 
         isLoading.onNext(false);
-        reload();
+        update();
     }
 
     @Override
-    public void reload() {
+    public void update() {
         isLoading.onNext(true);
         Observable<Params> forRequest = Observable.combineLatest(location.coordinates, preferences.unitSystem, Params::new);
         forRequest.subscribe(p -> api.forecast(p.location.latitude, p.location.longitude, p.units, getLanguage())
@@ -61,7 +61,7 @@ import rx.subjects.ReplaySubject;
 
     public void reloadIfRecommended() {
         if (isReloadRecommended())
-            reload();
+            update();
     }
 
     private static class Params {

@@ -62,7 +62,7 @@ public class HomeActivity extends InjectionActivity {
                 return true;
 
             case R.id.action_reload:
-                presenter.reload();
+                presenter.update();
                 return true;
 
             default:

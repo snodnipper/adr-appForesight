@@ -135,6 +135,6 @@ public class NowFragment extends InjectionFragment {
     @OnClick(R.id.fragment_now_temperature)
     @SuppressWarnings("UnusedDeclaration")
     public void onTemperatureClicked(@NonNull View view) {
-        presenter.reload();
+        presenter.update();
     }
 }

@@ -29,7 +29,7 @@ public class LocationPresenter implements Presenter {
         this.locationManager = locationManager;
         this.preferences = preferences;
 
-        preferences.savedManualLocation.subscribe(unused -> reload(), OnErrors.SILENTLY_IGNORE_THEM);
+        preferences.savedManualLocation.subscribe(unused -> update(), OnErrors.SILENTLY_IGNORE_THEM);
     }
 
 
@@ -71,7 +71,7 @@ public class LocationPresenter implements Presenter {
     }
 
     @Override
-    public void reload() {
+    public void update() {
         Optional<Coordinates> manualLocation = preferences.getSavedManualLocation();
         if (manualLocation.isPresent())
             coordinates.onNext(manualLocation.get());

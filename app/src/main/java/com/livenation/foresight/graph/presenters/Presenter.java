@@ -1,5 +1,5 @@
 package com.livenation.foresight.graph.presenters;
 
 public interface Presenter {
-    void reload();
+    void update();
 }
