@@ -2,7 +2,6 @@ package com.livenation.foresight.graph.presenters;
 
 import android.support.annotation.NonNull;
 
-import com.livenation.foresight.graph.PreferencesManager;
 import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.service.model.Coordinates;
 import com.livenation.foresight.service.model.Report;
@@ -18,7 +17,7 @@ import rx.subjects.ReplaySubject;
 
     private final ForecastApi api;
     private final LocationPresenter location;
-    private final PreferencesManager preferences;
+    private final PreferencesPresenter preferences;
 
     public final ReplaySubject<Boolean> isLoading = ReplaySubject.create(1);
     public final ReplaySubject<Report> forecast = ReplaySubject.create(1);
@@ -27,7 +26,7 @@ import rx.subjects.ReplaySubject;
 
     @Inject public ForecastPresenter(@NonNull ForecastApi api,
                                      @NonNull LocationPresenter location,
-                                     @NonNull PreferencesManager preferences) {
+                                     @NonNull PreferencesPresenter preferences) {
         this.api = api;
         this.location = location;
         this.preferences = preferences;

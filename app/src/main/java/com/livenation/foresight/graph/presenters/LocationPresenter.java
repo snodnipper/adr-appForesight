@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.livenation.foresight.functional.OnErrors;
+import com.livenation.foresight.functional.Optional;
 import com.livenation.foresight.service.model.Coordinates;
 
 import javax.inject.Inject;
@@ -18,18 +20,20 @@ import rx.subjects.ReplaySubject;
 @Singleton
 public class LocationPresenter implements Presenter {
     private final LocationManager locationManager;
+    private final PreferencesPresenter preferences;
     private boolean wantsUpdate = false;
 
     public final ReplaySubject<Coordinates> coordinates = ReplaySubject.create(1);
 
-    @Inject public LocationPresenter(@NonNull LocationManager locationManager) {
+    @Inject public LocationPresenter(@NonNull LocationManager locationManager, @NonNull PreferencesPresenter preferences) {
         this.locationManager = locationManager;
-        reload();
+        this.preferences = preferences;
+
+        preferences.savedManualLocation.subscribe(unused -> reload(), OnErrors.SILENTLY_IGNORE_THEM);
     }
 
 
-    @Override
-    public void reload() {
+    private void reloadFromLocationManager() {
         String providerName = locationManager.getBestProvider(makeCriteria(), true);
         if (providerName == null) {
             coordinates.onNext(Coordinates.DEFAULT);
@@ -64,6 +68,15 @@ public class LocationPresenter implements Presenter {
 
             this.wantsUpdate = false;
         }
+    }
+
+    @Override
+    public void reload() {
+        Optional<Coordinates> manualLocation = preferences.getSavedManualLocation();
+        if (manualLocation.isPresent())
+            coordinates.onNext(manualLocation.get());
+        else
+            reloadFromLocationManager();
     }
 
     public void setWantsUpdate() {

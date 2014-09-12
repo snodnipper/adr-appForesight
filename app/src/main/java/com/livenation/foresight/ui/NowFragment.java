@@ -1,10 +1,12 @@
 package com.livenation.foresight.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,8 +18,8 @@ import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.Units;
 import com.livenation.foresight.functional.OnErrors;
 import com.livenation.foresight.functional.Optional;
-import com.livenation.foresight.graph.PreferencesManager;
-import com.livenation.foresight.graph.ReverseGeocoder;
+import com.livenation.foresight.graph.presenters.GeocodePresenter;
+import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.service.model.Report;
 import com.livenation.foresight.service.model.WeatherData;
@@ -27,6 +29,7 @@ import com.livenation.foresight.util.InjectionFragment;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 import rx.Observable;
 
 import static com.livenation.foresight.util.Animations.animate;
@@ -43,8 +46,8 @@ public class NowFragment extends InjectionFragment {
     @InjectView(R.id.fragment_now_wind) TextView wind;
 
     @Inject ForecastPresenter presenter;
-    @Inject ReverseGeocoder geocoder;
-    @Inject PreferencesManager preferences;
+    @Inject GeocodePresenter geocoder;
+    @Inject PreferencesPresenter preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,5 +123,18 @@ public class NowFragment extends InjectionFragment {
 
     public void handleError(Throwable error) {
         OnErrors.showDialogFrom(getFragmentManager()).call(error);
+    }
+
+
+    @OnClick(R.id.fragment_now_location)
+    @SuppressWarnings("UnusedDeclaration")
+    public void onLocationClicked(@NonNull View view) {
+        startActivity(new Intent(getActivity(), LocationActivity.class));
+    }
+
+    @OnClick(R.id.fragment_now_temperature)
+    @SuppressWarnings("UnusedDeclaration")
+    public void onTemperatureClicked(@NonNull View view) {
+        presenter.reload();
     }
 }

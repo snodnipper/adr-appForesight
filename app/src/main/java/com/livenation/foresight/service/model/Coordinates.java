@@ -1,6 +1,10 @@
 package com.livenation.foresight.service.model;
 
 import android.location.Location;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import com.livenation.foresight.functional.Optional;
 
 public class Coordinates {
     public final double latitude;
@@ -9,6 +13,25 @@ public class Coordinates {
     public static final Coordinates DEFAULT = new Coordinates(37.8267, -122.423);
     public static Coordinates fromLocation(Location location) {
         return new Coordinates(location.getLatitude(), location.getLongitude());
+    }
+
+    public static Optional<Coordinates> fromString(@Nullable String string) {
+        if (TextUtils.isEmpty(string))
+            return Optional.empty();
+
+        String[] pieces = TextUtils.split(string, ",");
+        if (pieces.length != 2)
+            return Optional.empty();
+
+        Double latitude, longitude;
+        try {
+            latitude = Double.valueOf(pieces[0]);
+            longitude = Double.valueOf(pieces[1]);
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new Coordinates(latitude, longitude));
     }
 
     public Coordinates(double latitude, double longitude) {
@@ -45,9 +68,6 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return "Coordinate{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                '}';
+        return latitude + "," + longitude;
     }
 }

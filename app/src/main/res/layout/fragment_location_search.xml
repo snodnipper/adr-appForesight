@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/fragment_location_search_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/outer_margin"
+        android:drawableLeft="@drawable/ic_action_search"
+        android:drawableStart="@drawable/ic_action_search"
+        android:drawablePadding="@dimen/gap_medium"
+        android:hint="@string/current_conditions"
+        android:imeOptions="actionSearch|flagNoExtractUi"
+        android:singleLine="true"
+        android:background="@color/transparent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_color" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="@dimen/divider_height"
+        android:divider="@color/divider_color"/>
+
+</LinearLayout>

@@ -18,7 +18,7 @@ import com.livenation.foresight.formatters.BearingFormatter;
 import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.Units;
-import com.livenation.foresight.graph.PreferencesManager;
+import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.service.model.WeatherData;
 
 import javax.inject.Inject;
@@ -28,13 +28,14 @@ import butterknife.InjectView;
 
 import static com.livenation.foresight.adapters.ForecastAdapter.Mode;
 
-public class DatumDialogFragment extends DialogFragment {
-    public static final String TAG = DatumDialogFragment.class.getSimpleName();
+public class ForecastDetailsDialogFragment extends DialogFragment {
+    public static final String TAG = ForecastDetailsDialogFragment.class.getSimpleName();
 
-    private static final String ARG_WEATHER_DATA = "com.livenation.foresight.ui.DatumDialogFragment.ARG_WEATHER_DATA";
-    private static final String ARG_MODE = "com.livenation.foresight.ui.DatumDialogFragment.ARG_MODE";
+    private static final String ARG_WEATHER_DATA = "com.livenation.foresight.ui.ForecastDetailsDialogFragment.ARG_WEATHER_DATA";
+    private static final String ARG_MODE = "com.livenation.foresight.ui.ForecastDetailsDialogFragment.ARG_MODE";
 
-    @Inject PreferencesManager preferences;
+    @Inject
+    PreferencesPresenter preferences;
 
     @InjectView(R.id.fragment_dialog_datum_view) View view;
     @InjectView(R.id.fragment_dialog_datum_temperature) TextView temperature;
@@ -43,8 +44,8 @@ public class DatumDialogFragment extends DialogFragment {
     @InjectView(R.id.fragment_dialog_datum_wind) TextView wind;
     @InjectView(R.id.fragment_dialog_datum_precipitation) TextView precipitation;
 
-    public static DatumDialogFragment newInstance(@NonNull WeatherData weatherData, @NonNull Mode mode) {
-        DatumDialogFragment dialogFragment = new DatumDialogFragment();
+    public static ForecastDetailsDialogFragment newInstance(@NonNull WeatherData weatherData, @NonNull Mode mode) {
+        ForecastDetailsDialogFragment dialogFragment = new ForecastDetailsDialogFragment();
         Bundle arguments = new Bundle();
         arguments.putSerializable(ARG_WEATHER_DATA, weatherData);
         arguments.putSerializable(ARG_MODE, mode);
@@ -52,7 +53,7 @@ public class DatumDialogFragment extends DialogFragment {
         return dialogFragment;
     }
 
-    public DatumDialogFragment() {
+    public ForecastDetailsDialogFragment() {
         ForesightApplication.getInstance().inject(this);
     }
 
@@ -62,7 +63,7 @@ public class DatumDialogFragment extends DialogFragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         @SuppressLint("InflateParams")
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_dialog_datum, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_dialog_forecast_details, null);
         ButterKnife.inject(this, view);
         bindData(getWeatherData());
         dialog.setContentView(view);

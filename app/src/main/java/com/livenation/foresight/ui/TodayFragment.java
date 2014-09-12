@@ -56,7 +56,7 @@ public class TodayFragment extends InjectionFragment implements ForecastAdapter.
 
     @Override
     public void onItemClicked(WeatherData item, int position) {
-        DatumDialogFragment dialogFragment = DatumDialogFragment.newInstance(item, ForecastAdapter.Mode.HOURLY);
-        dialogFragment.show(getFragmentManager(), DatumDialogFragment.TAG);
+        ForecastDetailsDialogFragment dialogFragment = ForecastDetailsDialogFragment.newInstance(item, ForecastAdapter.Mode.HOURLY);
+        dialogFragment.show(getFragmentManager(), ForecastDetailsDialogFragment.TAG);
     }
 }
