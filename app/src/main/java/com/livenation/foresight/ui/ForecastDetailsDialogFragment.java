@@ -14,12 +14,9 @@ import android.widget.TextView;
 
 import com.livenation.foresight.ForesightApplication;
 import com.livenation.foresight.R;
-import com.livenation.foresight.formatters.BearingFormatter;
-import com.livenation.foresight.formatters.IconFormatter;
-import com.livenation.foresight.formatters.TemperatureFormatter;
-import com.livenation.foresight.formatters.Units;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.util.Formatter;
 
 import javax.inject.Inject;
 
@@ -34,8 +31,7 @@ public class ForecastDetailsDialogFragment extends DialogFragment {
     private static final String ARG_WEATHER_DATA = "com.livenation.foresight.ui.ForecastDetailsDialogFragment.ARG_WEATHER_DATA";
     private static final String ARG_MODE = "com.livenation.foresight.ui.ForecastDetailsDialogFragment.ARG_MODE";
 
-    @Inject
-    PreferencesPresenter preferences;
+    @Inject PreferencesPresenter preferences;
 
     @InjectView(R.id.fragment_dialog_datum_view) View view;
     @InjectView(R.id.fragment_dialog_datum_temperature) TextView temperature;
@@ -43,6 +39,9 @@ public class ForecastDetailsDialogFragment extends DialogFragment {
     @InjectView(R.id.fragment_dialog_datum_humidity) TextView humidity;
     @InjectView(R.id.fragment_dialog_datum_wind) TextView wind;
     @InjectView(R.id.fragment_dialog_datum_precipitation) TextView precipitation;
+
+    private Formatter formatter;
+
 
     public static ForecastDetailsDialogFragment newInstance(@NonNull WeatherData weatherData, @NonNull Mode mode) {
         ForecastDetailsDialogFragment dialogFragment = new ForecastDetailsDialogFragment();
@@ -55,6 +54,13 @@ public class ForecastDetailsDialogFragment extends DialogFragment {
 
     public ForecastDetailsDialogFragment() {
         ForesightApplication.getInstance().inject(this);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.formatter = new Formatter(getActivity());
     }
 
     @Override
@@ -82,11 +88,11 @@ public class ForecastDetailsDialogFragment extends DialogFragment {
     public void bindData(@NonNull WeatherData currently) {
         switch (getMode()) {
             case DAILY:
-                temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperatureMin(), currently.getTemperatureMax()));
+                temperature.setText(formatter.formatTemperatureRange(currently.getTemperatureMin(), currently.getTemperatureMax()));
                 break;
 
             case HOURLY:
-                temperature.setText(TemperatureFormatter.format(getActivity(), currently.getApparentTemperature()));
+                temperature.setText(formatter.formatTemperature(currently.getApparentTemperature()));
                 break;
         }
 
@@ -95,16 +101,16 @@ public class ForecastDetailsDialogFragment extends DialogFragment {
         precipitation.setText(getString(R.string.now_precipitation_probability_fmt, (long)(currently.getPrecipitationProbability() * 100)));
         wind.setText(getString(R.string.now_wind_fmt,
                 currently.getWindSpeed(),
-                Units.getSpeedAbbreviation(getActivity(), preferences.getUnitSystem()),
-                BearingFormatter.format(getActivity(), currently.getWindBearing())));
+                formatter.getSpeedAbbreviation(preferences.getUnitSystem()),
+                formatter.formatBearing(currently.getWindBearing())));
 
-        Drawable conditionIcon = getResources().getDrawable(IconFormatter.imageResourceForIcon(currently.getIcon()));
+        Drawable conditionIcon = getResources().getDrawable(formatter.lightDrawableForIcon(currently.getIcon()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
         else
             temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
 
-        int colorResId = IconFormatter.colorResourceForIcon(currently.getIcon());
+        int colorResId = formatter.colorResourceForIcon(currently.getIcon());
         view.setBackgroundResource(colorResId);
     }
 }

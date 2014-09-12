@@ -1,11 +1,12 @@
 package com.livenation.foresight.graph.presenters;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
 
-import com.livenation.foresight.formatters.AddressFormatter;
 import com.livenation.foresight.service.model.Coordinates;
+import com.livenation.foresight.util.Formatter;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -21,12 +22,16 @@ import static com.livenation.foresight.functional.Functions.filterList;
 
 @Singleton public class GeocodePresenter {
     private final Geocoder geocoder;
+    private final Formatter formatter;
 
     public final ReplaySubject<String> name = ReplaySubject.create(1);
 
     @Inject public GeocodePresenter(@NonNull Geocoder geocoder,
-                                    @NonNull LocationPresenter locationPresenter) {
+                                    @NonNull LocationPresenter locationPresenter,
+                                    @NonNull Context context) {
         this.geocoder = geocoder;
+        this.formatter = new Formatter(context);
+
         locationPresenter.coordinates.subscribe(this::geocodeLocation);
     }
 
@@ -35,12 +40,12 @@ import static com.livenation.foresight.functional.Functions.filterList;
             try {
                 List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
                 if (addresses == null || addresses.isEmpty()) {
-                    name.onNext("Current Location");
+                    name.onNext(formatter.getPlaceholderAddress());
                 } else {
-                    name.onNext(AddressFormatter.format(addresses.get(0)));
+                    name.onNext(formatter.formatAddress(addresses.get(0)));
                 }
             } catch (IOException e) {
-                name.onNext("Current Location");
+                name.onNext(formatter.getPlaceholderAddress());
             }
         }).start();
     }

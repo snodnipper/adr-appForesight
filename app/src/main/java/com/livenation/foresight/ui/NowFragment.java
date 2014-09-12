@@ -12,10 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
-import com.livenation.foresight.formatters.BearingFormatter;
-import com.livenation.foresight.formatters.IconFormatter;
-import com.livenation.foresight.formatters.TemperatureFormatter;
-import com.livenation.foresight.formatters.Units;
 import com.livenation.foresight.functional.OnErrors;
 import java8.util.Optional;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
@@ -23,6 +19,7 @@ import com.livenation.foresight.graph.presenters.GeocodePresenter;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.service.model.Report;
 import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.util.Formatter;
 import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionFragment;
 
@@ -49,9 +46,13 @@ public class NowFragment extends InjectionFragment {
     @Inject GeocodePresenter geocoder;
     @Inject PreferencesPresenter preferences;
 
+    private Formatter formatter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.formatter = new Formatter(getActivity());
         setRetainInstance(true);
     }
 
@@ -91,21 +92,21 @@ public class NowFragment extends InjectionFragment {
 
     public void bindForecast(Optional<WeatherData> data) {
         data.ifPresent(currently -> {
-            temperature.setText(TemperatureFormatter.format(getActivity(), currently.getTemperature()));
+            temperature.setText(formatter.formatTemperature(currently.getTemperature()));
             conditions.setText(currently.getSummary().orElse(""));
             humidity.setText(getString(R.string.now_humidity_fmt, (long)(currently.getHumidity() * 100)));
             wind.setText(getString(R.string.now_wind_fmt,
                     currently.getWindSpeed(),
-                    Units.getSpeedAbbreviation(getActivity(), preferences.getUnitSystem()),
-                    BearingFormatter.format(getActivity(), currently.getWindBearing())));
+                    formatter.getSpeedAbbreviation(preferences.getUnitSystem()),
+                    formatter.formatBearing(currently.getWindBearing())));
 
-            Drawable conditionIcon = getResources().getDrawable(IconFormatter.imageResourceForIcon(currently.getIcon()));
+            Drawable conditionIcon = getResources().getDrawable(formatter.lightDrawableForIcon(currently.getIcon()));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
                 temperature.setCompoundDrawablesRelativeWithIntrinsicBounds(conditionIcon, null, null, null);
             else
                 temperature.setCompoundDrawablesWithIntrinsicBounds(conditionIcon, null, null, null);
 
-            int colorResId = IconFormatter.colorResourceForIcon(currently.getIcon());
+            int colorResId = formatter.colorResourceForIcon(currently.getIcon());
             view.setBackgroundResource(colorResId);
 
             animate(humidity).alpha(1f);

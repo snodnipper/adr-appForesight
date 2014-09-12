@@ -19,10 +19,8 @@ import java.io.IOException;
 import java8.util.Optional;
 
 /**
- * Module for the Optional type.
- * <p>
- *
- * @author Gili Tzabari – https://github.com/FasterXML/jackson-databind/issues/494
+ * Module for the Optional type. Derived from the work done by Gili Tzabari in the
+ * Jackson github issue: https://github.com/FasterXML/jackson-databind/issues/494
  */
 public final class OptionalJacksonModule extends SimpleModule {
     private static final long serialVersionUID = 1L;

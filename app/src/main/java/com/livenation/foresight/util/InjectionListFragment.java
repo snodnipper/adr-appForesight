@@ -10,6 +10,11 @@ import com.livenation.foresight.ForesightApplication;
 
 import butterknife.ButterKnife;
 
+/**
+ * Calls {@see ForesightApplication#inject} on construction,
+ * then inflates the layout specified by @InjectLayout (optional),
+ * and finally calls {@see ButterKnife#inject}.
+ */
 public class InjectionListFragment extends ListFragment {
     public InjectionListFragment() {
         ForesightApplication.getInstance().inject(this);

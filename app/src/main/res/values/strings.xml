@@ -11,6 +11,7 @@
     <string name="fragment_title_week">Week</string>
 
     <string name="location_use_current">Use Current Location</string>
+    <string name="address_placeholder">Current Location</string>
 
 
     <!--region Data-->
@@ -26,6 +27,9 @@
     <string name="now_precipitation_probability_fmt">Chance of Precipitation: %1$d%%</string>
 
     <string name="current_conditions">Current Conditions</string>
+
+    <string name="day_date_format">EEEE</string>
+    <string name="time_date_format">hh a</string>
 
     <!--endregion-->
 

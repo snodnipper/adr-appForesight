@@ -31,12 +31,11 @@ Foresight is a simple weather app powered by the [Forecast.io](https://forecast.
 ## Basic Structure
 
 * adapters: Contains the general use adapters used by the project.
-* formatters: Contains single-static-method objects that are used to format forecast data before displaying it.
-* functional: Contains all of the functional-idiom-related tools used by the project. Includes the `Optional` type, a static class containing utility methods for transforming lists, and copies of the interfaces introduced in Java 8 for passing around functions.
+* functional: Contains tools to ease working with functional and reactive patterns.
 * graph: Contains the dependency injection module class, and all of the presenters used by the object.
 * service: Contains the interface and classes used by Retrofit and Jackson to handle network transport.
 * ui: contains the activities and fragments that make up the app user interface.
-* util: Contains a helper class for producing consistent animations, and activity/fragment subclasses that automatically perform view and dependency injection.
+* util: Contains a helper class for producing consistent animations, activity/fragment subclasses that automatically perform view and dependency injection, and a localization-ready formatter class.
 * ForesightApplication.java: This classes responsibilities are minor. It initializes the Caligraphy library, and sets up the dependency object graph.
 
 ## The presenter architecture

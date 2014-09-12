@@ -10,6 +10,11 @@ import com.livenation.foresight.ForesightApplication;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+/**
+ * Calls {@see ForesightApplication#inject} on construction,
+ * then inflates the layout specified by @InjectLayout (required),
+ * and finally calls {@see ButterKnife#inject}.
+ */
 public class InjectionActivity extends FragmentActivity {
     public InjectionActivity() {
         ForesightApplication.getInstance().inject(this);

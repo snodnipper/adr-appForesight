@@ -1,6 +1,7 @@
 package com.livenation.foresight.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
-import com.livenation.foresight.formatters.DayFormatter;
-import com.livenation.foresight.formatters.TemperatureFormatter;
-import com.livenation.foresight.formatters.TimeFormatter;
+
+import java8.lang.FunctionalInterface;
 import java8.util.Optional;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
+import com.livenation.foresight.util.Formatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,18 +26,21 @@ import butterknife.InjectView;
 
 import static com.livenation.foresight.functional.Functions.filterList;
 
+/**
+ * A recycler view adapter that is functionally an ArrayAdapter holding WeatherData instances.
+ */
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> implements View.OnClickListener {
-    private final Context context;
     private final LayoutInflater inflater;
     private final Mode mode;
     private final ArrayList<WeatherData> weatherData;
+    private final Formatter formatter;
 
     private OnItemClickListener onItemClickListener;
 
     public ForecastAdapter(@NonNull Context context, @NonNull Mode mode) {
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.mode = mode;
+        this.formatter = new Formatter(context);
         this.weatherData = new ArrayList<>();
     }
 
@@ -88,20 +92,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-        View view;
-        switch (mode) {
-            case HOURLY:
-                view = inflater.inflate(R.layout.item_hourly_forecast, viewGroup, false);
-                break;
+        View view = mode.inflate(inflater, viewGroup);
 
-            case DAILY:
-                view = inflater.inflate(R.layout.item_daily_forecast, viewGroup, false);
-                break;
-
-            default:
-                throw new IllegalStateException();
-        }
-
+        // Recycler views do not handle item selection,
+        // so we assign the adapter as the click listener
+        // for each view created, and later set the tag
+        // of the view to the position of the view.
         view.setOnClickListener(this);
 
         return new ViewHolder(view);
@@ -113,13 +109,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         WeatherData forecast = weatherData.get(position);
         switch (mode) {
             case HOURLY:
-                holder.time.setText(TimeFormatter.format(forecast.getTime()));
-                holder.temperature.setText(TemperatureFormatter.format(context, forecast.getApparentTemperature()));
+                holder.time.setText(formatter.formatTime(forecast.getTime()));
+                holder.temperature.setText(formatter.formatTemperature(forecast.getApparentTemperature()));
                 break;
 
             case DAILY:
-                holder.temperature.setText(TemperatureFormatter.format(context, forecast.getTemperatureMin(), forecast.getTemperatureMax()));
-                holder.time.setText(DayFormatter.format(forecast.getTime()));
+                holder.temperature.setText(formatter.formatTemperatureRange(forecast.getTemperatureMin(), forecast.getTemperatureMax()));
+                holder.time.setText(formatter.formatDay(forecast.getTime()));
                 break;
         }
         holder.conditions.setText(forecast.getSummary().orElse(""));
@@ -143,10 +139,20 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     public static enum Mode {
-        HOURLY,
-        DAILY,
+        HOURLY(R.layout.item_hourly_forecast),
+        DAILY(R.layout.item_daily_forecast);
+
+        public View inflate(@NonNull LayoutInflater inflater, ViewGroup viewGroup) {
+            return inflater.inflate(layoutResId, viewGroup, false);
+        }
+
+        private @LayoutRes int layoutResId;
+        private Mode(@LayoutRes int layoutResId) {
+            this.layoutResId = layoutResId;
+        }
     }
 
+    @FunctionalInterface
     public interface OnItemClickListener {
         void onItemClicked(WeatherData item, int position);
     }

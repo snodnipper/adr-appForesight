@@ -12,11 +12,26 @@ import com.livenation.foresight.R;
 
 import rx.functions.Action1;
 
-public class OnErrors {
+/**
+ * Provides common error handlers for use with Rx Observable subscriptions.
+ */
+public final class OnErrors {
+    /**
+     * Silently consumes errors.
+     */
     public static final Action1<Throwable> SILENTLY_IGNORE_THEM = e -> {};
+
+    /**
+     * Noisily consumes errors by printing them to the Android system log.
+     */
     public static final Action1<Throwable> NOISILY_IGNORE_THEM = e -> Log.e("Foresight-Reactive", "An error has occurred", e);
 
-    public static Action1<Throwable> showDialogFrom(FragmentManager fm) {
+    /**
+     * Returns a new error handler that uses a given fragment manager to display errors in dialog fragments.
+     * @param fm    The fragment manager to show the dialogs from.
+     * @return  A new error handler.
+     */
+    public static @NonNull Action1<Throwable> showDialogFrom(@NonNull FragmentManager fm) {
         return e -> {
             DialogFragment dialogFragment = new DialogFragment() {
                 @Override

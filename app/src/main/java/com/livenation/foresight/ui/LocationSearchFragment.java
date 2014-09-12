@@ -15,12 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.livenation.foresight.R;
-import com.livenation.foresight.formatters.AddressFormatter;
 import com.livenation.foresight.functional.OnErrors;
 import java8.util.Optional;
 import com.livenation.foresight.graph.presenters.GeocodePresenter;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.service.model.Coordinates;
+import com.livenation.foresight.util.Formatter;
 import com.livenation.foresight.util.InjectLayout;
 import com.livenation.foresight.util.InjectionListFragment;
 
@@ -110,16 +110,20 @@ public class LocationSearchFragment extends InjectionListFragment {
 
 
     private class ResultsAdapter extends ArrayAdapter<Address> {
+        private final Formatter formatter;
+
         private ResultsAdapter(Context context) {
             super(context, android.R.layout.simple_list_item_1);
+
+            this.formatter = new Formatter(context);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             TextView text = (TextView) super.getView(position, convertView, parent);
 
             Address location = getItem(position);
-            text.setText(AddressFormatter.format(location));
+            text.setText(formatter.formatAddress(location));
 
             return text;
         }

@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 
-import static com.livenation.foresight.adapters.StaticFragmentAdapter.Tab;
+import static com.livenation.foresight.adapters.StaticFragmentAdapter.Item;
 
 @InjectLayout(R.layout.activity_home)
 public class HomeActivity extends InjectionActivity {
@@ -31,9 +31,9 @@ public class HomeActivity extends InjectionActivity {
         super.onCreate(savedInstanceState);
 
         titleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Tab[] {
-                Tab.from(TodayFragment.class, getString(R.string.fragment_title_today)),
-                Tab.from(WeekFragment.class, getString(R.string.fragment_title_week)),
+        viewPager.setAdapter(new StaticFragmentAdapter(getSupportFragmentManager(), new Item[] {
+                Item.with(TodayFragment.class, getString(R.string.fragment_title_today)),
+                Item.with(WeekFragment.class, getString(R.string.fragment_title_week)),
         }));
 
         //noinspection ConstantConditions

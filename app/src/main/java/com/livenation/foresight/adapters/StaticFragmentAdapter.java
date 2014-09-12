@@ -6,22 +6,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class StaticFragmentAdapter extends FragmentPagerAdapter {
-    private final Tab[] tabs;
+    private final Item[] items;
 
-    public StaticFragmentAdapter(FragmentManager fm, Tab[] tabs) {
+    public StaticFragmentAdapter(FragmentManager fm, Item[] items) {
         super(fm);
-        this.tabs = tabs;
+        this.items = items;
     }
 
     @Override
     public int getCount() {
-        return tabs.length;
+        return items.length;
     }
 
     @Override
     public Fragment getItem(int position) {
         try {
-            return tabs[position].clazz.newInstance();
+            return items[position].clazz.newInstance();
         } catch (InstantiationException|IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -29,18 +29,18 @@ public class StaticFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabs[position].title.toUpperCase();
+        return items[position].title.toUpperCase();
     }
 
-    public static class Tab {
+    public static class Item {
         public final Class<? extends Fragment> clazz;
         public final String title;
 
-        public static Tab from(@NonNull Class<? extends Fragment> clazz, @NonNull String title) {
-            return new Tab(clazz, title);
+        public static Item with(@NonNull Class<? extends Fragment> clazz, @NonNull String title) {
+            return new Item(clazz, title);
         }
 
-        public Tab(@NonNull Class<? extends Fragment> clazz, @NonNull String title) {
+        public Item(@NonNull Class<? extends Fragment> clazz, @NonNull String title) {
             this.clazz = clazz;
             this.title = title;
         }

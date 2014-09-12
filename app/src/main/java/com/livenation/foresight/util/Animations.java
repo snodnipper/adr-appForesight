@@ -12,7 +12,11 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import java8.util.Optional;
 import java8.util.function.Consumer;
 
-public class Animations {
+/**
+ * Convenience factory methods for vending animation objects
+ * that use a consistent duration and timing function.
+ */
+public final class Animations {
     public static final long DURATION_MS = 250;
     public static final TimeInterpolator DEFAULT_INTERPOLATOR = new AccelerateDecelerateInterpolator();
 
