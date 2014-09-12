@@ -5,12 +5,9 @@ import android.location.Geocoder;
 import android.support.annotation.NonNull;
 
 import com.livenation.foresight.formatters.AddressFormatter;
-import com.livenation.foresight.functional.Functions;
-import com.livenation.foresight.graph.presenters.LocationPresenter;
 import com.livenation.foresight.service.model.Coordinates;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

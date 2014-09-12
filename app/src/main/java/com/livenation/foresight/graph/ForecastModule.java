@@ -9,13 +9,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.livenation.foresight.functional.OptionalJacksonModule;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
+import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.ui.ForecastDetailsDialogFragment;
 import com.livenation.foresight.ui.HomeActivity;
 import com.livenation.foresight.ui.LocationActivity;
 import com.livenation.foresight.ui.LocationSearchFragment;
 import com.livenation.foresight.ui.NowFragment;
 import com.livenation.foresight.ui.TodayFragment;
-import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.ui.WeekFragment;
 
 import javax.inject.Singleton;
