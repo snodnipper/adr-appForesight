@@ -66,6 +66,8 @@ public final class Optional<T> {
             if (isPresent() && other.isPresent()) {
                 return get().equals(other.get());
             }
+
+            return isPresent() == other.isPresent();
         }
 
         return false;
