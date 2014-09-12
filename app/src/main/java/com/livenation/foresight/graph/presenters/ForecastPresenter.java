@@ -15,7 +15,7 @@ import javax.inject.Singleton;
 import rx.Observable;
 import rx.subjects.ReplaySubject;
 
-@Singleton public class ForecastPresenter implements Presenter {
+@Singleton public class ForecastPresenter implements UpdatablePresenter {
     public static final long UPDATE_INTERVAL = 1000 * (60 * 15) /* 15 minutes */;
 
     private final ForecastApi api;

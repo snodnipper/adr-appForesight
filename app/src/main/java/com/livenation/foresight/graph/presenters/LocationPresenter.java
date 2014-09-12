@@ -18,7 +18,7 @@ import javax.inject.Singleton;
 import rx.subjects.ReplaySubject;
 
 @Singleton
-public class LocationPresenter implements Presenter {
+public class LocationPresenter implements UpdatablePresenter {
     private final LocationManager locationManager;
     private final PreferencesPresenter preferences;
     private boolean wantsUpdate = false;
@@ -33,7 +33,12 @@ public class LocationPresenter implements Presenter {
     }
 
 
-    private void reloadFromLocationManager() {
+    /**
+     * This method may be overridden by subclasses for testing purposes.
+     * <p />
+     * The LocationManager is guaranteed to only be used from this method.
+     */
+    protected void reloadFromLocationManager() {
         String providerName = locationManager.getBestProvider(makeCriteria(), true);
         if (providerName == null) {
             coordinates.onNext(Coordinates.DEFAULT);

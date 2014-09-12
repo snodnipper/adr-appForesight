@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 
 import rx.subjects.ReplaySubject;
 
-@Singleton public class PreferencesPresenter implements SharedPreferences.OnSharedPreferenceChangeListener {
+@Singleton public class PreferencesPresenter implements UpdatablePresenter, SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String KEY_UNIT_SYSTEM = "unit_system";
     private static final String KEY_SAVED_MANUAL_LOCATION = "saved_manual_location";
 
@@ -24,12 +24,18 @@ import rx.subjects.ReplaySubject;
     public final ReplaySubject<Optional<Coordinates>> savedManualLocation = ReplaySubject.create(1);
 
     @Inject public PreferencesPresenter(@NonNull Context context) {
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.sharedPreferences = getSharedPreferencesFrom(context);
 
-        unitSystem.onNext(getUnitSystem());
-        savedManualLocation.onNext(getSavedManualLocation());
+        update();
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+
+    @Override
+    public void update() {
+        unitSystem.onNext(getUnitSystem());
+        savedManualLocation.onNext(getSavedManualLocation());
     }
 
 
@@ -58,6 +64,15 @@ import rx.subjects.ReplaySubject;
     //endregion
 
 
+    //region Internal
+
+    /**
+     * Provides an override point for tests.
+     */
+    protected SharedPreferences getSharedPreferencesFrom(@NonNull Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
@@ -73,4 +88,6 @@ import rx.subjects.ReplaySubject;
                 break;
         }
     }
+
+    //endregion
 }

@@ -20,7 +20,7 @@ import rx.subjects.ReplaySubject;
 
 import static com.livenation.foresight.functional.Functions.filterList;
 
-@Singleton public class GeocodePresenter {
+@Singleton public class GeocodePresenter implements Presenter {
     private final Geocoder geocoder;
     private final Formatter formatter;
 
