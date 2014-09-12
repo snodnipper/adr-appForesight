@@ -67,6 +67,10 @@ Using `Observable` reactive objects for all state enables us to express multiple
 
 All presenters are asynchronously updated. All of the presenters will perform an update immediately upon construction. Future updates are then a consequence of user interaction. The `ForecastPresenter` will automatically be updated by the `HomeActivity` if the user resumes the app after 15 minutes has passed. Any changes to the app's settings through the `SettingsActivity` will result in a `ForecastPresenter` update.
 
+# APKs
+
+- [Release 1](http://cl.ly/1o272V0z0m29)
+
 # License
 
 Copyright (c) 2014, Live Nation Worldwide, Inc. All rights reserved.
