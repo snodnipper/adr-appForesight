@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.service.ForecastApi;
 import com.livenation.foresight.service.model.Coordinates;
 

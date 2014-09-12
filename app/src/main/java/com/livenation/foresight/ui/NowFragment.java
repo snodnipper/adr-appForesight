@@ -17,7 +17,7 @@ import com.livenation.foresight.formatters.IconFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.Units;
 import com.livenation.foresight.functional.OnErrors;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.graph.presenters.ForecastPresenter;
 import com.livenation.foresight.graph.presenters.GeocodePresenter;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;

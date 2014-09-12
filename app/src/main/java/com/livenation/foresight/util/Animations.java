@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import com.livenation.foresight.functional.Optional;
-import com.livenation.foresight.functional.types.Consumer;
+import java8.util.Optional;
+import java8.util.function.Consumer;
 
 public class Animations {
     public static final long DURATION_MS = 250;

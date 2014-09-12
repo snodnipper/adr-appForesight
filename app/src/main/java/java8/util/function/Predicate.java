@@ -1,4 +1,4 @@
-package com.livenation.foresight.functional.types;
+package java8.util.function;
 
 public interface Predicate<T> {
     boolean test(T t);

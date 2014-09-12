@@ -3,8 +3,8 @@ package com.livenation.foresight.functional;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.livenation.foresight.functional.types.Function;
-import com.livenation.foresight.functional.types.Predicate;
+import java8.util.function.Function;
+import java8.util.function.Predicate;
 
 import java.util.ArrayList;
 import java.util.Collection;

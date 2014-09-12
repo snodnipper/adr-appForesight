@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.livenation.foresight.R;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.graph.presenters.LocationPresenter;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.util.InjectLayout;

@@ -4,7 +4,7 @@ import android.location.Location;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 
 public class Coordinates {
     public final double latitude;

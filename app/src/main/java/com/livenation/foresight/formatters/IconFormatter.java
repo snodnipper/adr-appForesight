@@ -1,7 +1,7 @@
 package com.livenation.foresight.formatters;
 
 import com.livenation.foresight.R;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 
 public class IconFormatter {
     public static int colorResourceForIcon(Optional<String> icon) {

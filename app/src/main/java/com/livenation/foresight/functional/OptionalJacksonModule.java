@@ -16,6 +16,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
 
+import java8.util.Optional;
+
 /**
  * Module for the Optional type.
  * <p>

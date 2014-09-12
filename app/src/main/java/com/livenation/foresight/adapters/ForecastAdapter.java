@@ -12,7 +12,7 @@ import com.livenation.foresight.R;
 import com.livenation.foresight.formatters.DayFormatter;
 import com.livenation.foresight.formatters.TemperatureFormatter;
 import com.livenation.foresight.formatters.TimeFormatter;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.service.model.Forecast;
 import com.livenation.foresight.service.model.WeatherData;
 

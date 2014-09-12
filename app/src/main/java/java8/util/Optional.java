@@ -1,11 +1,11 @@
-package com.livenation.foresight.functional;
+package java8.util;
 
 import android.support.annotation.Nullable;
 
-import com.livenation.foresight.functional.types.Consumer;
-import com.livenation.foresight.functional.types.Function;
-import com.livenation.foresight.functional.types.Predicate;
-import com.livenation.foresight.functional.types.Supplier;
+import java8.util.function.Consumer;
+import java8.util.function.Function;
+import java8.util.function.Predicate;
+import java8.util.function.Supplier;
 
 import java.util.NoSuchElementException;
 

@@ -9,7 +9,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.livenation.foresight.functional.OnErrors;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.service.model.Coordinates;
 
 import javax.inject.Inject;

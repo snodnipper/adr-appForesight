@@ -1,7 +1,7 @@
 package com.livenation.foresight.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 
 import java.io.Serializable;
 

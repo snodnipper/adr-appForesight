@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.livenation.foresight.R;
 import com.livenation.foresight.formatters.AddressFormatter;
 import com.livenation.foresight.functional.OnErrors;
-import com.livenation.foresight.functional.Optional;
+import java8.util.Optional;
 import com.livenation.foresight.graph.presenters.GeocodePresenter;
 import com.livenation.foresight.graph.presenters.PreferencesPresenter;
 import com.livenation.foresight.service.model.Coordinates;
