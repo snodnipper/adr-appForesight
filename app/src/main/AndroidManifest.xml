@@ -4,8 +4,8 @@
     package="com.livenation.foresight" >
 
 
-    <uses-sdk
-        tools:node="replace" />
+    <!--<uses-sdk-->
+        <!--tools:node="replace" />-->
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />

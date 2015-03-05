@@ -3,16 +3,16 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:2.2.3'
+        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'retrolambda'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         applicationId "com.livenation.foresight"
@@ -28,9 +28,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
+        debug {
+
+        }
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     packagingOptions {
@@ -64,7 +65,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.2.4'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.4'
     compile 'com.android.support:support-v13:20.0.0'
-    compile 'com.android.support:recyclerview-v7:21.0.0-rc1'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
 
     compile 'uk.co.chrisjenx:calligraphy:1.1.0'
 
